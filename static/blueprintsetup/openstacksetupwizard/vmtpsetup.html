@@ -1,0 +1,119 @@
+<div class="container-fluid" ng-app="mercuryInstaller.blueprintSetup.openstackSetupWizard.vmtp" ng-controller="VMTPCtrl">
+
+
+
+
+      <div  class="col-md-12">
+
+          <form role="form" class="col-md-12">
+              <div class="row tabContentPadding>
+
+                  <div class="form-group">
+                      <label for="" >{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_VMTP_PROV_NET' | translate }}</label>
+                      <input id="externalLBVIPTLS" type="checkbox"  ng-model="vmtpobj.provNet" ng-click="checkUserInputsForVMTP()">
+                  </div>
+
+              </div>
+            <div class="row tabContentPadding">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="inputdefault" class="requiredField">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_VMTP_NETWORKNAME' | translate }}</label><error-message ng-show="errorMsgprovNetworkName!=='' && errorMsgprovNetworkName!=undefined" errormsg="errorMsgprovNetworkName"></error-message>
+                        <input class="form-control" id="inputdefault" type="text" ng-model = "vmtpobj.providerNetwork.networkName" required-field-validator errormessage="errorMsgprovNetworkName" ng-blur="checkUserInputsForVMTP()" ng-disabled="!vmtpobj.provNet">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="inputlg" class="requiredField">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_VMTP_SUBNET' | translate }}</label> <error-message ng-show="errorMsgProvNetwork!=='' && errorMsgProvNetwork!=undefined" errormsg="errorMsgProvNetwork"></error-message>
+                        <input class="form-control" id="inputlg" type="text" ng-model="vmtpobj.providerNetwork.subnet" subnet-validator errormessage="errorMsgProvNetwork" ng-blur="checkUserInputsForVMTP()" ng-disabled="!vmtpobj.provNet">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="inputsm" class="requiredField">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_VMTP_FLOATINGIPSTART' | translate }}</label><error-message ng-show="errorMsgProvIPStart!=='' && errorMsgProvIPStart!=undefined" errormsg="errorMsgProvIPStart"></error-message>
+                        <input class="form-control" id="inputsm" type="text" ng-model="vmtpobj.providerNetwork.floatingIpstart" ip-validator errormessage="errorMsgProvIPStart" ng-blur="checkUserInputsForVMTP()" ng-disabled="!vmtpobj.provNet">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="inputsm" class="requiredField">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_VMTP_FLOATINGIPEND' | translate }}</label><error-message ng-show="errorMsgProvIPEnd!=='' && errorMsgProvIPEnd!=undefined" errormsg="errorMsgProvIPEnd"></error-message>
+                        <input class="form-control" id="inputsm" type="text" ng-model="vmtpobj.providerNetwork.floatingIpend" ip-validator errormessage="errorMsgProvIPEnd" ng-blur="checkUserInputsForVMTP()" ng-disabled="!vmtpobj.provNet">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="inputsm" class="requiredField">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_VMTP_EXTERNALGATEWAY' | translate }}</label><error-message ng-show="errorMsgProvGateway!=='' && errorMsgProvGateway!=undefined" errormsg="errorMsgProvGateway"></error-message>
+                        <input class="form-control" id="inputsm" type="text" ng-model="vmtpobj.providerNetwork.gateway" ip-validator errormessage="errorMsgProvGateway" ng-blur="checkUserInputsForVMTP()" ng-disabled="!vmtpobj.provNet">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="inputsm" class="requiredField">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_VMTP_DNSSERVER' | translate }}</label><error-message ng-show="errorMsgProvDNSServer!=='' && errorMsgProvDNSServer!=undefined" errormsg="errorMsgProvDNSServer"></error-message>
+                        <input class="form-control" id="inputsm" type="text" ng-model="vmtpobj.providerNetwork.dnsServer" ip-fqdn-validator errormessage="errorMsgProvDNSServer" ng-blur="checkUserInputsForVMTP()" ng-disabled="!vmtpobj.provNet">
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="inputsm" class="requiredField">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_VMTP_SEGMENTATION_ID' | translate }}</label><error-message ng-show="errorMsgProvSegId!=='' && errorMsgProvSegId!=undefined" errormsg="errorMsgProvSegId"></error-message><help-text text-key="OPENSTACK_VMTP_SEGMENTATION_ID"> </help-text><error-message ng-show="errorMsgProvSegmentId!=='' && errorMsgProvSegmentId!=undefined" errormsg="errorMsgProvSegmentId"></error-message>
+                        <input class="form-control" id="inputsm" type="number" ng-model="vmtpobj.providerNetwork.segmentationId" required-field-validator ng-blur="checkUserInputsForVMTP()" errormessage="errorMsgProvSegId" min="2" max="4094" ng-disabled="!vmtpobj.provNet">
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    <hr/>
+
+      
+     <form role="form" class="col-md-12">
+         <div class="row tabContentPadding" >
+            <div class="form-group">
+                <label for="" >{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_VMTP_EXT_NET' | translate }}</label>
+                <input id="externalLBVIPTLS" type="checkbox"  ng-model="vmtpobj.extNet" ng-click="checkUserInputsForVMTP()">
+            </div>
+         </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="inputdefault" class="requiredField">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_VMTP_NETWORKNAME' | translate }}</label><error-message ng-show="errorMsgExtNetworkName!=='' && errorMsgExtNetworkName!=undefined" errormsg="errorMsgExtNetworkName"></error-message>
+                    <input class="form-control" id="inputdefault" type="text" ng-model = "vmtpobj.externalNetwork.networkName" ng-blur="checkUserInputsForVMTP()" ng-disabled="!vmtpobj.extNet">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="inputlg" class="requiredField">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_VMTP_SUBNET' | translate }}</label> <error-message ng-show="errorMsgExtNetwork!=='' && errorMsgExtNetwork!=undefined" errormsg="errorMsgExtNetwork"></error-message>
+                    <input class="form-control" id="inputlg" type="text" ng-model="vmtpobj.externalNetwork.subnet" subnet-validator ng-blur="checkUserInputsForVMTP()" ng-disabled="!vmtpobj.extNet">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="inputsm" class="requiredField">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_VMTP_FLOATINGIPSTART' | translate }}</label><error-message ng-show="errorMsgExtIPStart!=='' && errorMsgExtIPStart!=undefined" errormsg="errorMsgExtIPStart"></error-message>
+                    <input class="form-control" id="inputsm" type="text" ng-model="vmtpobj.externalNetwork.floatingIpstart"  ip-validator ng-blur="checkUserInputsForVMTP()" ng-disabled="!vmtpobj.extNet">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="inputsm" class="requiredField">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_VMTP_FLOATINGIPEND' | translate }}</label><error-message ng-show="errorMsgExtIPEnd!=='' && errorMsgExtIPEnd!=undefined" errormsg="errorMsgExtIPEnd"></error-message>
+                    <input class="form-control" id="inputsm" type="text" ng-model="vmtpobj.externalNetwork.floatingIpend" ip-validator ng-blur="checkUserInputsForVMTP()" ng-disabled="!vmtpobj.extNet">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="inputsm" class="requiredField">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_VMTP_EXTERNALGATEWAY' | translate }}</label><error-message ng-show="errorMsgExtGateway!=='' && errorMsgExtGateway!=undefined" errormsg="errorMsgExtGateway"></error-message>
+                    <input class="form-control" id="inputsm" type="text" ng-model="vmtpobj.externalNetwork.gateway" ip-validator ng-blur="checkUserInputsForVMTP()" ng-disabled="!vmtpobj.extNet">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="inputsm" class="requiredField">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_VMTP_DNSSERVER' | translate }}</label><error-message ng-show="errorMsgExtDNSServer!=='' && errorMsgExtDNSServer!=undefined" errormsg="errorMsgExtDNSServer"></error-message>
+                    <input class="form-control" id="inputsm" type="text" ng-model="vmtpobj.externalNetwork.dnsServer" ip-fqdn-validator ng-blur="checkUserInputsForVMTP()" ng-disabled="!vmtpobj.extNet">
+                </div>
+            </div>
+        </div>
+    </form> 
+    </div>
+
+    
+
+</div>

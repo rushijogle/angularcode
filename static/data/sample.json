@@ -1,0 +1,128 @@
+{
+    "CIMC-COMMON": {
+        "cimc_username": "admin",
+        "cimc_password": "cisco123"
+    },
+    "COBBLER": {
+        "server": "19.0.0.2",
+        "host_profile": "RHEL7.1-x86_64",
+        "cobbler_username": "cobbler",
+        "cobbler_password": "cobbler",
+        "admin_username": "root",
+        "admin_password_hash": "$1$hETREIX1",
+        "admin_ssh_keys": [
+            "ssh-rsa AAQ6g0nIzzd localadmin@GG27-16"
+        ],
+        "kickstart": {
+            "control": "control-flexflash-c220m4.ks",
+            "compute": "compute-flexflash-c220m4.ks",
+            "block_storage": "storage-flexflash-c240m4.ks"
+        }
+    },
+    "NETWORKING": {
+        "domain_name": "ctocllab.cisco.com",
+        "ntp_servers": [
+            "1.ntp.esl.cisco.com",
+            "2.ntp.esl.cisco.com"
+        ],
+        "domain_name_servers": [
+            "171.70.168.183"
+        ],
+        "http_proxy_servers": [
+            "proxy.esl.cisco.com:8080",
+            "proxy-wsa.esl.cisco.com:8080"
+        ],
+        "https_proxy_servers": [
+            "proxy.esl.cisco.com:8080",
+            "proxy-wsa.esl.cisco.com:8080"
+        ],
+        "networks": [
+            {
+                "vlan_id": 3355,
+                "subnet": "19.0.0.0/24",
+                "gateway": "19.0.0.254",
+                "pool": [
+                    "19.0.0.4 to 19.0.0.30"
+                ],
+                "segments": [
+                    "management",
+                    "provision"
+                ]
+            },
+            {
+                "vlan_id": 685,
+                "subnet": "172.29.68.144/28",
+                "gateway": "172.29.68.145",
+                "defroute": true,
+                "pool": [
+                    "172.29.68.148",
+                    "172.29.68.150 to 172.29.68.151"
+                ],
+                "segments": [
+                    "api"
+                ]
+            },
+            {
+                "vlan_id": "None",
+                "subnet": "33.33.1.0/24",
+                "gateway": "33.33.1.1",
+                "pool": [
+                    "33.33.1.3 to 33.33.1.30"
+                ],
+                "segments": [
+                    "tenant"
+                ]
+            }
+        ]
+    },
+    "REDHAT_SUBSCRIPTION": {
+        "rh_username": "cvg_ganguly",
+        "rh_password": "osse1234",
+        "proxy_host": "64.102.255.40",
+        "proxy_port": 8080,
+        "subscription_pool": "8a85f9814b2d5616014b2d0e29931b7f",
+        "rh_ceph_subscription_pool": "8a85f9814b2d5616014b2d0e29931b7f"
+    },
+    "ROLES": {
+        "control": [
+            "gg31-1-controller-1"
+        ],
+        "compute": [
+            "gg31-1-compute-1"
+        ],
+        "block_storage": null,
+        "object_storage": null,
+        "networker": null
+    },
+    "SERVER_COMMON": {
+        "server_username": "root"
+    },
+    "SERVERS": {
+        "gg31-1-controller-1": {
+            "cimc_info": {
+                "cimc_ip": "172.29.172.134"
+            },
+            "rack_info": {
+                "rack_id": "RackA"
+            }
+        },
+        "gg31-1-compute-1": {
+            "cimc_info": {
+                "cimc_ip": "172.29.172.126"
+            },
+            "rack_info": {
+                "rack_id": "RackD"
+            }
+        }
+    },
+    "VMTP_VALIDATION": {
+        "EXT_NET_NAME": "ext-net",
+        "EXT_NET": "172.29.68.144/28",
+        "FLOATING_IP_START": "172.29.68.154",
+        "FLOATING_IP_END": "172.29.68.158",
+        "EXT_GATEWAY": "172.29.68.145",
+        "DNS_SERVER": "171.70.168.183"
+    },
+    "LOGSTASH_CERTIFICATE_NODE_IP": "19.0.0.2",
+    "LOGSERVER_NODE_IP": "19.0.0.2"
+}

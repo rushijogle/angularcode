@@ -1,0 +1,125 @@
+<div class="container-fluid mobilePadding leftpadding-0" id="exTab3">
+	<div class="col-md-6 mobilePadding " >
+		<h4 ng-bind="getHeading()"></h4>
+    </div>
+    <div class="col-md-6 mobilePadding " >
+        <button text="Next" class="btn btn-primary pull-right setmarginBlueprint " ng-click="clearFields()">{{getClearBtnLabel()}}</button>
+        <button value="Back" class="btn btn-primary pull-right setmarginBlueprint" ng-click="checkAllUserInputsAndValidate()" >Offline Validate</button>
+    </div>
+    <div id="validationstatusmodal" data-backdrop="static" class="modal fade" role="dialog">
+	 <div class="modal-dialog">
+
+    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+
+	        <h4 class="modal-title">Setup Data Invalid.</h4>
+	      </div>
+	      <div class="modal-body">
+	          <ul >
+			  <li>Blueprint Initial Setup <img src="../static/imgs/success.png" ng-show="isInitialSetupValidated"/><img src="../static/imgs/error.png" ng-hide="isInitialSetupValidated"/></li>
+			  <li>Physical Setup<br/>
+					<ul>
+                        <li>Registry Setup<img src="../static/imgs/success.png" ng-show="bluePrintSetupInput.physicalSetupData.registryobj.isRegistryValidated"/><img src="../static/imgs/error.png" ng-hide="bluePrintSetupInput.physicalSetupData.registryobj.isRegistryValidated"/></li>
+						<li ng-show="bluePrintSetupInput.initialSetupData.type=='B'?true:false">UCSM<img src="../static/imgs/success.png" ng-show="bluePrintSetupInput.physicalSetupData.UCSM.isUCSMValidated"/><img src="../static/imgs/error.png" ng-hide="bluePrintSetupInput.physicalSetupData.UCSM.isUCSMValidated"/></li>
+						<li ng-show="bluePrintSetupInput.initialSetupData.type=='C'?true:false">CIMC<img src="../static/imgs/success.png" ng-show="bluePrintSetupInput.physicalSetupData.CIMC_COMMON.iscimcvalidated"/><img src="../static/imgs/error.png" ng-hide="bluePrintSetupInput.physicalSetupData.CIMC_COMMON.iscimcvalidated"/></li>
+						<li>Networking<img src="../static/imgs/success.png" ng-show="bluePrintSetupInput.physicalSetupData.NETWORKING.isNetworkValidated"/><img src="../static/imgs/error.png" ng-hide="bluePrintSetupInput.physicalSetupData.NETWORKING.isNetworkValidated"/></li>
+						<li>Servers and Roles<img src="../static/imgs/success.png" ng-show="bluePrintSetupInput.physicalSetupData.SERVERS.isServersValidated"/><img src="../static/imgs/error.png" ng-hide="bluePrintSetupInput.physicalSetupData.SERVERS.isServersValidated"/></li>
+					</ul>		  
+			   </li>
+			  <li>Openstack Setup <br/>
+			  		<ul >
+						<li>HA Proxy<img src="../static/imgs/success.png" ng-show="bluePrintSetupInput.openstackSetupData.haProxyData.isHAProxyValidated"/><img src="../static/imgs/error.png" ng-hide="bluePrintSetupInput.openstackSetupData.haProxyData.isHAProxyValidated"/></li>
+						<li>Keystone<img src="../static/imgs/success.png" ng-show="bluePrintSetupInput.openstackSetupData.keystoneData.isKeystoneValidated"/><img src="../static/imgs/error.png" ng-hide="bluePrintSetupInput.openstackSetupData.keystoneData.isKeystoneValidated"/></li>
+						<li>Neutron<img src="../static/imgs/success.png" ng-show="bluePrintSetupInput.openstackSetupData.neutronData.isNewtronValidated"/><img src="../static/imgs/error.png" ng-hide="bluePrintSetupInput.openstackSetupData.neutronData.isNewtronValidated"/></li>
+						<li>Ceph<img src="../static/imgs/success.png" ng-show="bluePrintSetupInput.openstackSetupData.cephData.isCephValidated"/><img src="../static/imgs/error.png" ng-hide="bluePrintSetupInput.openstackSetupData.cephData.isCephValidated"/></li>
+						<li>Glance<img src="../static/imgs/success.png" ng-show="bluePrintSetupInput.openstackSetupData.glanceData.isGlanceValidated"/><img src="../static/imgs/error.png" ng-hide="bluePrintSetupInput.openstackSetupData.glanceData.isGlanceValidated"/></li>
+						<li>Cinder<img src="../static/imgs/success.png" ng-show="bluePrintSetupInput.openstackSetupData.cinderData.isCinderValidated"/><img src="../static/imgs/error.png" ng-hide="bluePrintSetupInput.openstackSetupData.cinderData.isCinderValidated"/></li>
+						<li  ng-show="bluePrintSetupInput.initialSetupData.isVMTP">VMTP<img src="../static/imgs/success.png" ng-show="bluePrintSetupInput.openstackSetupData.vmtpData.isVMTPValidated"/><img src="../static/imgs/error.png" ng-hide="bluePrintSetupInput.openstackSetupData.vmtpData.isVMTPValidated"/></li>
+                        <li  ng-show="bluePrintSetupInput.openstackSetupData.tlsobj.externallbviptls">TLS<img src="../static/imgs/success.png" ng-show="bluePrintSetupInput.openstackSetupData.tlsobj.isTLSValidated"/><img src="../static/imgs/error.png" ng-hide="bluePrintSetupInput.openstackSetupData.tlsobj.isTLSValidated"/></li>
+                        <li  ng-show="bluePrintSetupInput.openstackSetupData.elkobj.isElkSupported">ELK<img src="../static/imgs/success.png" ng-show="bluePrintSetupInput.openstackSetupData.elkobj.isELKValidated"/><img src="../static/imgs/error.png" ng-hide="bluePrintSetupInput.openstackSetupData.elkobj.isELKValidated"/></li>
+					</ul>
+			  </li>
+			  
+		   </ul>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+	      </div>
+	    </div>
+
+ 	 </div>
+	</div>
+    <ul class="nav nav-tabs col-md-12 mobilePadding nav-pills" id="tabpanel">
+        <li class="active"><a data-toggle="tab" class="mousepointer" data-target="#BlueprintInitSetup" ng-click="setActiveTab(0)">Blueprint Initial Setup</a></li>
+        <li><a data-toggle="tab" class="mousepointer" data-target="#physicalSetup" ng-click="setActiveTab(1)">Physical Setup</a></li>
+        <li><a data-toggle="tab" data-target="#openstackSetup" class="mousepointer" ng-click="setActiveTab(2)">OpenStack Setup</a></li>
+
+    </ul>
+    
+    <div class="tab-content col-md-12 mobilePadding tabContentPadding">
+        <div class="col-md-12 tabContentPadding mobilePadding tab-pane  fade in active" id="BlueprintInitSetup">
+            <div style="padding-bottm:10px;margin-top:20px;" class="col-md-12 tabContentPadding mobilePadding BlueprintInitSetup">
+                <div class="col-md-6 form-group mobilePadding"><label for="" class="requiredField">{{ 'BLUEPRINTSETUP_BLUEPRINTNITIALSETUP_BLUEPRINTNAME' | translate }}:</label> <input type="text" class="form-control" placeholder="Enter Blueprint Name" ng-model="bluePrintSetupInput.initialSetupData.blueprintName" required-field-Validator errormessage="errorMsgBlueprintName" tabname="InitialSetup" stepname="" ng-blur="checkUserInputsForInitSetup()"/></div>
+                <div class="col-md-6 form-group mobilePadding"><label for="" class="requiredField">{{ 'BLUEPRINTSETUP_BLUEPRINTNITIALSETUP_PLATFORMTYPE' | translate }}:</label><select class="form-control" id="sel1" ng-model="bluePrintSetupInput.initialSetupData.type" ng-change="onChangePlatformType()">
+                        <option selected="selected" value='B' ng-click="onChangePlatformType($event)" >B Series</option>
+                        <option value='C' ng-click="onChangePlatformType($event)" >C Series</option>
+                    </select>
+                </div>
+                <div class="col-md-6 form-group mobilePadding"><label for="" class="requiredField">Tenant Network:</label><select class="form-control" id="sel1" ng-model="bluePrintSetupInput.initialSetupData.filter" ng-change="setValueInSharedObject()">
+                        <option selected="selected" value="VXLAN/Linux Bridge">VXLAN/Linux Bridge</option>
+						<option value="OVS/VLAN">OVS/VLAN</option>
+                    </select>
+                </div>
+               
+                
+                <div class="col-md-6 form-group mobilePadding">
+                    <label for="inputdefault" class="requiredField" >{{ 'BLUEPRINTSETUP_BLUEPRINTNITIALSETUP_CEPHMODE' | translate }}</label> 
+                    <select class="form-control" ng-model="sharedObject.cephMode" ng-change="onChangeCephMode()">
+                    	<option value="Dedicated">Dedicated</option>
+                    	<option value="Central">Central</option>
+                    </select>
+                </div>
+                 <div class="col-md-6 form-group mobilePadding"><label for="">{{ 'BLUEPRINTSETUP_BLUEPRINTNITIALSETUP_OPTIONALFEATURE' | translate }}:</label>
+
+					<label class="checkbox-inline"><input type="checkbox" value="" ng-model="bluePrintSetupInput.initialSetupData.isCloudPulse">Cloud Pulse</label>
+					<!--<label class="checkbox-inline"><input type="checkbox" value="" ng-model="bluePrintSetupInput.initialSetupData.isVMTP">VMTP</label>-->
+					<label class="checkbox-inline"><input type="checkbox" value="" ng-model="bluePrintSetupInput.initialSetupData.isHeat">Heat</label>
+					
+					
+                </div>
+                <div class="col-md-6 form-group mobilePadding"><label for="">{{ 'BLUEPRINTSETUP_BLUEPRINTNITIALSETUP_CUSTOMELK' | translate }}:&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" value="" ng-model="bluePrintSetupInput.openstackSetupData.elkobj.isElkSupported"></label>
+                </div>
+                <hr class="col-md-12"></hr>
+                <div class="col-md-12 form-group">
+                    <label>{{ 'BLUEPRINTSETUP_BLUEPRINTNITIALSETUP_IMPFILE' | translate }}</label>
+                </div>                    
+                <div class="form-group col-md-4">                       
+                    <input type="text" class="form-control" readonly  ng-model="yamlImportObject.yamlFileName" ng-click="openDialog()">
+                </div>
+                <div class=" col-md-8">
+                    <import-yaml yamlimportobject = "yamlImportObject"></import-yaml>            
+                    <button type="button" class="btn btn-primary" ng-click="loadYAMLContent()" ng-disabled = "yamlImportObject.yamlFileName === '' || yamlImportObject.yamlFileContent === ''">Load</button>            
+                </div>              
+                
+                <div class="col-md-12 BlueprintInitSetup mobilePadding"></div>
+            </div>    		
+        </div>
+        <div id="physicalSetup" class="col-md-12 tabContentPadding tab-pane fade mobilePadding"> 
+            <physical-setup blueprintsetupinput="bluePrintSetupInput" isphysicalsetupvalidated="isPhysicalSetupValidated" sharedobject="sharedObject"></physical-setup>
+        </div>
+        <div id="openstackSetup" class="col-md-12 tabContentPadding tab-pane fade mobilePadding"> 
+            <openstack-setup blueprintsetupinput="bluePrintSetupInput" isopenstacksetupvalidated="isOpenstackSetupValidated" sharedobject="sharedObject"> </openstack-setup>  
+
+
+        </div>		
+    </div>
+	<mi-confirmation-popup popuptext="popupText" onproceed="onProceed()" showpopup="isVisible" cancelfunction="onCancel()"></mi-confirmation-popup>
+	<mi-offline-validation setupinput="inputJSON" validationresponse="validationResponse" showofflinevalidation="showOfflineValidation" overallstatus="overallstatus" isedit="isEdit" uuid="uuid" taskid="validationtask"></mi-offline-validation>
+</div>
+
+
+
+
+

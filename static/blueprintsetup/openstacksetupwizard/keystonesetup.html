@@ -1,0 +1,26 @@
+<div class="container-fluid" ng-app="mercuryInstaller.blueprintSetup.openstackSetupWizard.keystone" ng-controller="KeystoneCtrl">
+    <form role="form" class="col-md-6">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="inputdefault" class="requiredField">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_KEYSTONE_ADMINUSERNAME' | translate }}</label> <error-message ng-show="errorMsgUserName!=='' && errorMsgUserName!=undefined" errormsg="errorMsgUserName"></error-message>
+                    <input class="form-control" id="inputdefault" type="text" ng-model = "keystoneobj.userName" required-field-Validator errormessage="errorMsgUserName" tabname="OpenstackSetup" stepname="Keystone" ng-blur="checkUserInputsForKeystone()">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="inputlg" class="requiredField">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_KEYSTONE_PASSWORD' | translate }}</label> <error-message ng-show="errorMsgAdminUserPwd!=='' && errorMsgAdminUserPwd!=undefined" errormsg="errorMsgAdminUserPwd"></error-message>
+                    <input class="form-control" id="inputlg" type="password" ng-model="keystoneobj.password" required-field-Validator errormessage="errorMsgAdminUserPwd" tabname="OpenstackSetup" stepname="Keystone" ng-blur="checkUserInputsForKeystone()">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="inputsm" class="requiredField">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_KEYSTONE_TENANTNAME' | translate }}</label> <error-message ng-show="errorMsgAdminTenantName!=='' && errorMsgAdminTenantName!=undefined" errormsg="errorMsgAdminTenantName"></error-message>
+                    <input class="form-control" id="inputsm" type="text" ng-model="keystoneobj.tenantName" required-field-Validator errormessage="errorMsgAdminTenantName" tabname="OpenstackSetup" stepname="Keystone" ng-blur="checkUserInputsForKeystone()">
+                </div>
+            </div>
+            
+        </div>
+    </form>  
+
+</div>

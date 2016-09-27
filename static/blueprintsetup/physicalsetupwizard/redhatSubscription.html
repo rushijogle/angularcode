@@ -1,0 +1,46 @@
+<div class="container-fluid" ng-app="MercuryInstaller.BlueprintSetup.PhysicalSetupWizard.Redhat" ng-controller="redhatsubController">
+    <form role="form" class="col-md-6">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="inputdefault" class="requiredField">Redhat Username</label> <error-message ng-show="errorMsgUsrName!=='' && errorMsgUsrName!=undefined" errormsg="errorMsgUsrName"></error-message>
+                    <input class="form-control" id="inputdefault" type="text" ng-model = "redhatsubscriptionobj.userName" required-field-Validator errormessage="errorMsgUsrName" tabname="PhysicalSetup" stepname="RedhatSubscription" ng-blur="checkUserInputsForRedhatSub()">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="inputsm" class="requiredField">Redhat Password</label> <error-message ng-show="errorMsgPwd!=='' && errorMsgPwd!=undefined" errormsg="errorMsgPwd"></error-message>
+                    <input class="form-control" id="inputsm" type="password" ng-model="redhatsubscriptionobj.redhatPassword" required-field-Validator errormessage="errorMsgPwd"required-field-Validator errormessage="errorMsg" tabname="PhysicalSetup" stepname="RedhatSubscription" ng-blur="checkUserInputsForRedhatSub()">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="inputsm" >Proxy host</label> <error-message ng-show="errorMsgProxyHost!=='' && errorMsgProxyHost!=undefined" errormsg="errorMsgProxyHost"></error-message>
+                    <input class="form-control" id="inputsm" type="text" ng-model="redhatsubscriptionobj.proxyHost" ng-blur="checkUserInputsForRedhatSub()">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="inputsm" >Proxy port</label> <error-message ng-show="errorMsgProxyPort!=='' && errorMsgProxyPort!=undefined" errormsg="errorMsgProxyPort"></error-message>
+                    <input class="form-control" id="inputsm" type="text" ng-model="redhatsubscriptionobj.proxyPort"  ng-blur="checkUserInputsForRedhatSub()">
+                </div>
+            </div>
+                        
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="inputsm" class="requiredField">Subscription Pool</label> <error-message ng-show="errorMsgSubPool!=='' && errorMsgSubPool!=undefined" errormsg="errorMsgSubPool"></error-message>
+                    <input class="form-control" id="inputsm" type="text" ng-model="redhatsubscriptionobj.subscriptionPool" required-field-Validator errormessage="errorMsgSubPool" tabname="PhysicalSetup" stepname="RedhatSubscription" ng-blur="checkUserInputsForRedhatSub()">
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="inputlg" ng-class="sharedobject.cephMode!='Dedicated'?'': 'requiredField'">Ceph Subscription Pool</label> <error-message ng-show="errorMsgCephSubPool!=='' && errorMsgCephSubPool!=undefined" errormsg="errorMsgCephSubPool"></error-message>
+                    <input class="form-control" id="inputlg" type="text" ng-model="redhatsubscriptionobj.rh_ceph_subscription_pool" required-field-Validator errormessage="errorMsgCephSubPool" tabname="PhysicalSetup" stepname="RedhatSubscription" ng-blur="checkUserInputsForRedhatSub()">
+                </div>
+            </div>
+            
+        </div>
+    </form>  
+
+</div>

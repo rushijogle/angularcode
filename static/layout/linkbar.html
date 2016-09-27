@@ -1,0 +1,52 @@
+<nav class="navbar sub-banner setMargin" ng-show="isUserAuthenticated">
+    <div class="container-fluid setColorlinkbar">
+        <div class="navbar-header" style="margin-top: 9px; ">
+            <button type="button" class="navbar-toggle collapsed customclassforsubheader" data-toggle="collapse" data-target="#navbar2" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar toggleborder"></span>
+                <span class="icon-bar toggleborder"></span>
+                <span class="icon-bar toggleborder"></span>
+            </button>
+        </div>
+        <div id="navbar2" class="navbar-collapse collapse" style="margin-top: 8px;">
+            <ul class="nav navbar-nav navbar-right customenav">
+
+                <li class="navbariconssize dropdown" ng-click="Notification()">
+                    <a href="javascript:void(0)" data-toggle="dropdown" title="Notifications"> 
+                        <img src="../static/imgs/notification.png">
+                        <span class="badge btn-danger notificationPosition" ng-hide="isNotificationVisible"> i </span> <span class="caret"></span>
+                        <ul class="dropdown-menu transperantColor linkbarwidth">
+                            <a> </a>
+                            <li class="dropdownborder" ng-click="$event.stopPropagation()"> <h6 class="fontstyle linkbarpadding"><b>Blueprint : </b>{{NotificationBlueprintName}}</h6></li>
+                            <li class="dropdownborder" ng-click="$event.stopPropagation()"> <h6 class="fontstyle linkbarpadding"><b>Validation : </b>{{NotificationValidationName}}</h6></li>
+                            <li class="dropdownborder" ng-click="$event.stopPropagation()"> <h6 class="fontstyle linkbarpadding"><b>Baremetal : </b>{{NotificationBaremetalName}}</h6></li>
+                            <li class="dropdownborder" ng-click="$event.stopPropagation()"> <h6 class="fontstyle linkbarpadding"><b>Host Setup : </b>{{NotificationHostSetupName}}</h6></li>
+                            <li class="dropdownborder" ng-click="$event.stopPropagation()"> <h6 class="fontstyle linkbarpadding" ><b>Ceph : </b>{{NotificationCephName}}</h6></li>
+                            <li class="dropdownborder" ng-click="$event.stopPropagation()"> <h6 class="fontstyle linkbarpadding"><b>Orchestration : </b>{{NotificationOrchestrationName}}</h6></li>
+                            <li class="dropdownborder" ng-click="$event.stopPropagation()"> <h6 class="fontstyle linkbarpadding"><b>VMTP : </b>{{NotificationVMTPName}}</h6></li>
+                            <li class="dropdownborder" ng-click="$event.stopPropagation()"> <h6 class="fontstyle linkbarpadding"><b>Current Status : </b>{{NotificationCurrentStatusName}}</h6></li>
+                        </ul>
+                    </a>
+                </li>
+                <li class="navbariconssize dropdown">
+                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" title="Languages">
+                        <img src="../static/imgs/language.png"> <span class="caret"></span>
+                        <ul class="dropdown-menu transperantColor">
+                            <li class="dropdownborder" ng-click="changeLanguage('en')"><a href="javascript:void(0)" ng-click="changeLanguage('en')" >English</a></li>
+                            <li class="dropdownborder" ng-click="changeLanguage('fre')"><a href="javascript:void(0)" ng-click="changeLanguage('fre')">French</a></li>
+                        </ul>
+                    </a>
+                </li>
+                <li class="navbariconssize">
+                    <a href="javascript:void(0)" data-toggle="tooltip" title="Logout" ng-click="logout()">
+                        <img src="../static/imgs/logout.png">
+                    </a>
+                </li>
+                <!--   <li><a href="javascript:void(0)">Help</a></li>
+                                 <li><a href="javascript:void(0)">Option</a></li>
+                                 <li><a href="javascript:void(0)">Notification</a></li>
+                                 <li><a href="#/logout">Logout</a></li> -->
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+</nav>

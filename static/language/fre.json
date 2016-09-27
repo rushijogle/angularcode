@@ -1,0 +1,12 @@
+{
+    "BUTTON_LANG_EN": "Anglais",
+    "BUTTON_LANG_FR": "français",
+    "NAVBAR_DASHBOARD": "Tableau de bord",
+    "NAVBAR_PREINSTALL": "Pré-installation",
+    "NAVBAR_PREINSTALL_BLUEPRINTSETUP": "Configuration de Blueprint",
+    "NAVBAR_PREINSTALL_BLUEPRINTMANAGEMENT": "Management Blueprint",
+    "NAVBAR_POSTINSTALL": "Post-installation",
+    "NAVBAR_POSTINSTALL_TOPOLOGY": "topologie",
+    "NAVBAR_POSTINSTALL_MONITORING": "surveillance"
+}
+

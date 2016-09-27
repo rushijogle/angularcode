@@ -1,0 +1,40 @@
+<div ng-app="mercuryInstaller.blueprintSetup.openstackSetupWizard.elk" ng-controller="ELKCtrl">
+    <form role="form">
+
+        <div class="col-md-6 mobilePadding">
+            <div class="col-md-12 ">
+                <div class="form-group">
+                    <label for="" >{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_ELK_PASSWORD' | translate }}</label> <error-message ng-show="errorMsgelkpassowrd!=='' && errorMsgelkpassowrd!=undefined" errormsg="errorMsgelkpassowrd"></error-message>
+                    <input class="form-control" id="elkpassword" required-field-validator errormessage="errorMsgelkpassowrd" type="password"  placeholder="ELK Pasword" ng-model="elkobj.password" ng-blur="checkUserInputsForELK()">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mobilePadding">
+            <div class="col-md-12 ">
+                <div class="form-group">
+                    <label for="">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_ELK_ROTATION_FREQUENCY' | translate }}</label>
+                    <select class="form-control" ng-model="elkobj.frequency" ng-change="checkUserInputsForELK()">
+                    	<option value="daily">Daily</option>
+                    	<option value="weekly">Weekly</option>
+                    	<option value="fortnightly">Fortnightly</option>
+                    	<option value="monthly">Monthly</option>
+                    	
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mobilePadding">
+            <div class="col-md-12 ">
+                <div class="form-group">
+                    <label for="">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_ELK_ROTATION_SIZE' | translate }}</label> <error-message ng-show="errorMsgRotationsize!=='' && errorMsgRotationsize!=undefined" errormsg="errorMsgRotationsize"></error-message> <help-text text-key="ELK_ROTATION_SIZE"> </help-text>
+                    <input class="form-control" id="elkrotationsize" required-field-validator errormessage="errorMsgRotationsize" type="number"  placeholder="Rotation Size" ng-model="elkobj.size"  min="1.0" max="50.0" step="0.1" ng-blur="checkUserInputsForELK()">
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+
+</div>

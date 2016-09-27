@@ -1,0 +1,25 @@
+<div ng-app="MercuryInstaller.BlueprintSetup.PhysicalSetupWizard.CIMC" ng-controller="CIMCController">
+    <form role="form">
+        
+            <div class="col-md-12 mobilePadding">
+                <div class="col-md-6 ">
+                    <div class="form-group">
+                        <label for="inputdefault" class="requiredField">{{ 'BLUEPRINTSETUP_PHYSICALSETUP_CIMCCOMMON_USERNAME' | translate }}</label> <error-message ng-show="errorMsgCimcUser!=='' && errorMsgCimcUser!=undefined" errormsg="errorMsgCimcUser"></error-message>
+                        <input class="form-control" id="login-username" type="text" placeholder="username" ng-model="cimcobj.cimc_username"  required-field-Validator errormessage="errorMsgCimcUser" tabname="PhysicalSetup" stepname="CIMC" ng-blur="checkUserInputsForCIMC()" readonly="readonly">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 mobilePadding">
+                <div class="col-md-6 ">
+                    <div class="form-group">
+                        <label for="inputlg" class="requiredField">{{ 'BLUEPRINTSETUP_PHYSICALSETUP_CIMCCOMMON_PASSWORD' | translate }}</label> <error-message ng-show="errorMsgPwd!=='' && errorMsgPwd!=undefined" errormsg="errorMsgPwd"></error-message>
+                        <input class="form-control" id="login-password" type="password" autocomplete="off" placeholder="password" ng-model="cimcobj.cimc_password" required-field-Validator errormessage="errorMsgPwd" tabname="PhysicalSetup" stepname="CIMC" ng-blur="checkUserInputsForCIMC()" >
+                    </div>
+                </div>
+            </div>
+
+        
+    </form>  
+
+</div>

@@ -1,0 +1,102 @@
+
+<div ng-controller="RunvmtpCtrl">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" data-target="#InstallVMTP" class="mousepointer">Results for Auto-run</a></li>
+        <li><a data-toggle="tab" data-target="#ManualVMTP" class="mousepointer">Results for Manual Run</a></li>
+
+    </ul>
+
+    <div class="tab-content">
+        <div id="InstallVMTP" class="tab-pane fade in active">
+            <div class="col-sm-11">
+                <h4>{{ 'DASHBOARD_BLUEPRINTNAME' | translate }} : <strong>{{VMTPname}}</strong></h4>
+                <canvas id="barchartInstall" class="chart chart-bar marginbar " height="80"  chart-data="installdata" chart-labels="installlabels" chart-series="installseries" chart-legend="true" chart-options="myChartOptions" >   </canvas>
+                <h4 class="yaxislabel" ng-show="checkIfVMTPDataPresent()">Throughput in Gbps</h4>
+                <h4 class="xaxislabel text-center" ng-show="checkIfVMTPDataPresent()"> VMTP Flows </h4>
+                <div class="col-md-5 labelcontainer" ng-show="checkIfVMTPDataPresent()">
+                    <h5><b>VMTP Flows</b></h5>
+
+                    <table class="table table-bordered vmtpLabelList vmtpBorder">
+                        <thead>
+
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="vm in installvmlabel" >
+                            <td class="paddingZerop vmtpcolor"> <b>{{vm.id}}</b></td>
+                            <td class="paddingZerop">{{vm.name}}</td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6 labelcontainer " ng-show="checkIfVMTPDataPresent()">
+                    <h5><b>VMTP Summary</b></h5>
+                    <table class="table table-bordered" ng-repeat="summary in installvmtpSummaryarr">
+                        <thead>
+
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="(key, val) in summary" >
+                            <td class="paddingZerop vmtpcolor"> <b>{{key}}</b> </td>
+                            <td class="paddingZerop">{{val}}</td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+            <div class="col-md-12" ng-hide="checkIfVMTPDataPresent()" style="text-align: center">No Data Available</div>
+        </div>
+        <div id="ManualVMTP" class="tab-pane fade">
+            <h4>{{ 'DASHBOARD_BLUEPRINTNAME' | translate }} : <strong>{{VMTPname}}</strong></h4>
+            <div class="col-md-4 pull-right">
+
+                <button class="btn btn-small btn-primary vmtpbutton pull-right" ng-click="deployservice()" title="{{getTitleForRunVMTP()}}" ng-disabled="checkIfAnyOperationRunning()"> Run VMTP </button>
+            </div>
+            <div>
+                VMTP Status : <span ng-bind="runningvmtpstatus" ng-class="checkforstatusandapplyclass()"></span> <img src="../static/imgs/loading_small.gif" ng-show="isVMTPRunning" >
+            </div>
+            <div class="col-sm-11" ng-hide="isVMTPContainer">
+                <canvas id="barchartmanual" class="chart chart-bar marginbar " height="80"  chart-data="data" chart-labels="labels" chart-series="series" chart-legend="true" options="myChartOptions" >   </canvas>
+                <h4 class="yaxislabel" >Throughput in Gbps</h4>
+                <h4 class="xaxislabel text-center"> VMTP Flows </h4>
+                <div class="col-md-5 labelcontainer">
+                    <h5><b>VMTP Flows</b></h5>
+
+                    <table class="table table-bordered vmtpLabelList vmtpBorder">
+                        <thead>
+
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="vm in vmlabel" >
+                            <td class="paddingZerop vmtpcolor"> <b>{{vm.id}}</b></td>
+                            <td class="paddingZerop">{{vm.name}}</td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6 labelcontainer ">
+                    <h5><b>VMTP Summary</b></h5>
+                    <table class="table table-bordered" ng-repeat="summary in vmtpSummaryarr">
+                        <thead>
+
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="(key, val) in summary" >
+                            <td class="paddingZerop vmtpcolor"> <b>{{key}}</b> </td>
+                            <td class="paddingZerop">{{val}}</td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>

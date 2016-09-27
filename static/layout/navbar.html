@@ -1,0 +1,72 @@
+
+<div class="col-md-12" ng-show="isUserAuthenticated">
+    <div class="accordion" id="accordion2">
+        <div class="accordion-group fixedheight">
+            <div class="accordion-heading fontname">
+                <a class="accordion-toggle" ng-class="currentPath === 'dashboard' ? 'activeItem' : 'inActiveItem'" data-toggle="collapse"  href="#/dashboard" translate="NAVBAR_DASHBOARD">
+                    
+                </a>
+            </div>
+
+        </div>
+        <div class="accordion-group fixedheight">
+            <div class="accordion-heading fontname">
+                <a class="accordion-toggle" data-toggle="collapse"  data-target="#collapseTwo" translate="NAVBAR_PREINSTALL">
+                    <span class="glyphicon glyphicon-arrow"></span>
+                    
+                </a>
+            </div>
+            <div id="collapseTwo" class="accordion-body collapse" >
+                <div class="accordion-inner mainAccroidian" width="100%" ng-class="currentPath === 'blueprintsetup' ? 'activeItem' : 'inActiveItem'">
+                    <a href="#/blueprintsetup" class="filldiv" translate="NAVBAR_PREINSTALL_BLUEPRINTSETUP"> </a>
+                </div>
+                <div class="accordion-inner mainAccroidian" ng-class="currentPath === 'blueprintmgmt' ? 'activeItem' : 'inActiveItem'">
+                    <a href="#/blueprintmgmt" class="filldiv" translate="NAVBAR_PREINSTALL_BLUEPRINTMANAGEMENT"> </a>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-group fixedheight">
+            <div class="accordion-heading fontname">
+                <a class="accordion-toggle" data-toggle="collapse" data-target="#collapseThree" translate="NAVBAR_POSTINSTALL">
+                    <span class="glyphicon glyphicon-arrow"></span>
+                    
+                </a>
+            </div>
+            <div id="collapseThree" class="accordion-body collapse">
+                <div class="accordion-inner mainAccroidian" ng-class="currentPath === 'logs' ? 'activeItem' : 'inActiveItem'">
+                    <a href="#/logs" class="filldiv" translate="NAVBAR_POSTINSTALL_MONITORING" ng-class="Defaultclass"></a>
+
+                </div>
+                <div class="accordion-inner mainAccroidian" ng-class="currentPath === 'runvmtp' ? 'activeItem' : 'inActiveItem'">
+                    <a href="#/runvmtp" class="filldiv" translate="NAVBAR_POSTINSTALL_RUN_VMTP" ng-class="VMTPclass" ></a>
+
+                </div>
+				
+				 <div class="accordion-inner mainAccroidian" ng-class="currentPath === 'runcloudpulse' ? 'activeItem' : 'inActiveItem'">
+                    <a href="#/runcloudpulse" class="filldiv" translate="NAVBAR_POSTINSTALL_RUN_CLOUD_PULSE" ng-class="Cpulseclass"></a>
+
+                </div>
+                <div class="accordion-inner mainAccroidian" ng-class="currentPath === 'podanagement' ? 'activeItem' : 'inActiveItem'">
+                    <a href="#/podanagement" class="filldiv" translate="NAVBAR_POSTINSTALL_POD_MANAGEMENT" ng-class="Defaultclass"></a>
+
+                </div>
+                <div class="accordion-inner mainAccroidian" ng-class="currentPath === 'systemupdate' ? 'activeItem' : 'inActiveItem'">
+                    <a href="#/systemupdate" class="filldiv" translate="NAVBAR_SYSTEM_UPDATE" ng-class="Defaultclass"></a>
+
+                </div>
+
+
+            </div>
+        </div>
+        <div class="accordion-group fixedheight">
+            <div class="accordion-heading fontname">
+                <a class="accordion-toggle" ng-class="currentPath === 'topology' ? 'activeItem' : 'inActiveItem'" data-toggle="collapse" href="#/topology"  translate="NAVBAR_POSTINSTALL_TOPOLOGY">
+                    
+                </a>
+            </div>
+
+        </div>
+
+       
+    </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="container-fluid" ng-app="mercuryInstaller.blueprintSetup.openstackSetupWizard.cinder" ng-controller="CinderCtrl">
+    <form role="form" class="col-md-6">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="inputdefault" class="requiredField">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_CINDER_VOLUMEDRIVER' | translate }}</label>
+                    <select class="form-control" id="volumeDriver" ng-model="cinderobj.volumeDriver" ng-change="checkUserInputsForCinder()" ng-disabled="true">
+                        <option value="lvm">LVM</option>
+                        <option value="ceph">CEPH</option>
+                    </select>
+                  <!--  <input class="form-control" id="inputdefault" type="text" ng-model = "cinderobj.volumeDriver" check-required-cinder ng-blur="checkUserInputsForCinder()"> -->
+                </div>
+            </div>
+            <div class="col-md-6" ng-show="checkForCephModeAndShowHide()">
+                <div class="form-group">
+                    <label for="inputlg" ng-class="sharedobject.cephMode=='Dedicated'?'': 'requiredField'">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_CINDER_CINDERRBDPOOL' | translate }}</label> <error-message ng-show="errorMsgRBDPool!=='' && errorMsgRBDPool!=undefined" errormsg="errorMsgRBDPool"></error-message>
+                    <input class="form-control" id="inputlg" type="text" ng-model="cinderobj.cinderPool" required-field-Validator errormessage="errorMsgRBDPool" tabname="OpenstackSetup" stepname="Cinder" ng-blur="checkUserInputsForCinder()" readonly="readonly">
+                </div>
+            </div>
+            <div class="col-md-6" ng-show="checkForCephModeAndShowHide()">
+                <div class="form-group">
+                    <label for="inputsm" ng-class="sharedobject.cephMode=='Dedicated'?'': 'requiredField'">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_CINDER_CINDERCLIENTKEY' | translate }}</label> <error-message ng-show="errorMsgClientKey!=='' && errorMsgClientKey!=undefined" errormsg="errorMsgClientKey"></error-message>
+                    <input class="form-control" id="inputsm" type="text" ng-model="cinderobj.cinderKey" required-field-validator errormessage="errorMsgClientKey" ng-blur="checkUserInputsForCinder()">
+                </div>
+            </div>
+        </div>
+    </form>  
+
+</div>

@@ -1,0 +1,31 @@
+<div ng-app="mercuryInstaller.blueprintSetup.physicalSetupWizard.registrySetup" ng-controller="RegistyCtrl">
+    <form role="form">
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="registry-username" class="requiredField">{{ 'BLUEPRINTSETUP_PHYSICALSETUP_REGISTRY_USER_NAME' | translate }}</label> <error-message ng-show="errorMsgRegistryUserName!=='' && errorMsgRegistryUserName!=undefined" errormsg="errorMsgRegistryUserName"></error-message>
+                <input class="form-control" id="registry-username" type="text" placeholder="Registry User Name" ng-model="registryobj.registryUsername"  required-field-Validator errormessage="errorMsgRegistryUserName"  ng-blur="checkUserInputsForRegistry()">
+            </div>
+        </div>
+
+
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="registry-password" class="requiredField">{{ 'BLUEPRINTSETUP_PHYSICALSETUP_REGISTRY_PASSWORD' | translate }}</label> <error-message ng-show="errorMsgRegistryPwd!=='' && errorMsgRegistryPwd!=undefined" errormsg="errorMsgRegistryPwd"></error-message>
+                <input class="form-control" id="registry-password" type="password" autocomplete="off" placeholder="Registry Password" ng-model="registryobj.registryPassword" required-field-Validator errormessage="errorMsgRegistryPwd" ng-blur="checkUserInputsForRegistry()" >
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="registry-email" class="requiredField">{{ 'BLUEPRINTSETUP_PHYSICALSETUP_REGISTRY_EMAIL' | translate }}</label> <error-message ng-show="errorMsgRegistryEmail!=='' && errorMsgRegistryEmail!=undefined" errormsg="errorMsgRegistryEmail"></error-message>
+                <input class="form-control" id="registry-email" type="email" autocomplete="off" placeholder="Registry Email" ng-model="registryobj.registryEmail" required-field-Validator errormessage="errorMsgRegistryEmail" ng-blur="checkUserInputsForRegistry()" >
+            </div>
+        </div>
+
+
+
+    </form>
+
+</div>

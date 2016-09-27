@@ -1,0 +1,254 @@
+<div class="col-md-12" ng-app="mercuryInstaller.podManagement" ng-controller="PodManagementCtrl">
+	<h4>{{ 'DASHBOARD_BLUEPRINTNAME' | translate }} : <b>{{blueprintName}}</b></h4> 
+	<br/>
+	<div class="col-md-12">
+		<label>Replace Control</label>
+		
+		<div class="col-md-12 paddingZerop">
+			
+
+			<div ui-grid="gridOptionsForControl"  ui-grid-exporter class="grid podmanagementtable" style="height: 190px" ui-grid-auto-resize ui-grid-resize-columns ui-grid-move-columns>
+
+			</div>
+		</div>
+	</div>
+	<br/>
+	<br/>
+	<br/>
+	<div class="col-md-12" style="padding-top: 30px;">
+		<label>Add/Remove Compute</label>
+		<div class="btn-group inline pull-right" style="padding-bottom: 15px;">    
+	    	<button class="btn btn-primary" title="Add Compute"  name = "Add Compute" ng-click="clearPreviouslyFilledComputeData()" ng-disabled = "isActiveOperation || isAnyPodOperationFailed">Add</button>
+			<button class="btn btn-primary" title="Add Compute"  name = "Clear Failed Compute Nodes" ng-click="clearFailedNodeData()" ng-hide = "!removeComputeFailed">Clear Failed Nodes</button>
+	     </div>
+		<div class="col-md-12 paddingZerop">
+
+			<div ui-grid="gridOptionsForCompute"  ui-grid-exporter class="grid podmanagementtable" style="height: 190px" ui-grid-auto-resize ui-grid-resize-columns ui-grid-move-columns>
+
+			</div>
+		</div>
+	</div>
+	<br/>
+	<br/>
+	<br/>
+
+	<div class="col-md-12" style="padding-top: 30px;" ng-show="isCephModeDedicated()">
+		<label>Add/Remove Block Storage</label>
+		<div class="btn-group inline pull-right" style="padding-bottom: 15px;" >    
+	    	<button class="btn  btn-primary" title="Add Block Storage"  name = "Add Block Storage"  ng-click="clearPreviouslyFilledStorageData()" ng-disabled = "isActiveOperation || isAnyPodOperationFailed">Add</button>
+			<button class="btn btn-primary" title="Add Compute"  name = "Clear Failed Compute Nodes" ng-click="clearFailedNodeData()" ng-hide = "!removeStorageFailed">Clear Failed Nodes</button>
+	     </div>
+		
+		<div class="col-md-12 paddingZerop">
+
+
+			<div ui-grid="gridOptionsForBlockStorage"  ui-grid-exporter class="grid podmanagementtable" style="height: 190px" ui-grid-auto-resize ui-grid-resize-columns ui-grid-move-columns>
+
+			</div>
+		</div>
+		
+	</div>
+	<div id="AddComputePopup" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+	
+	  <!-- Modal content-->
+		  <div class="modal-content">
+			    <div class="modal-header">
+
+			      	<h4 class="modal-title">Add Compute</h4>
+			    </div>
+			    <div class="modal-body">
+			      	<form role="form">
+			      		<div class="form-group">
+					      	<label for="" class="requiredField">Server Name:</label><error-message ng-show="errorMsgServername!=='' && errorMsgServername!=undefined" errormsg="errorMsgServername"></error-message><help-text text-key="SERVER_AND_ROLES_SERVER_NAME"> </help-text>
+					      	<input type="text" class="form-control" placeholder="Enter Server Name" ng-model="newComputeObj.name" required-field-validator errormessage="errorMsgServername" addeditpopup="true" maxlength="32"/>
+					    </div>
+					    <div class="form-group" >
+					      	<label for="" class="requiredField">Rack ID:</label><error-message ng-show="errorMsgRackId!=='' && errorMsgRackId!=undefined" errormsg="errorMsgRackId"></error-message>
+					      	<input type="text" class="form-control" placeholder="Enter Rack ID" ng-model="newComputeObj.rack_id" required-field-validator errormessage="errorMsgRackId" addeditpopup="true"/>
+					    </div>
+					    
+					    <div class="form-group" ng-show="isBSeries()">
+					      	<label for="">Chassis ID:</label><error-message ng-show="errorMsgChasisId!=='' && errorMsgChasisId!=undefined" errormsg="errorMsgChasisId"></error-message><help-text text-key="SERVER_AND_ROLES_CHASSIS_ID"> </help-text>
+					      	<input type="number" class="form-control" placeholder="Enter Chassis ID" ng-model="newComputeObj.chassis_id" min="1" max="8" required-field-validator errormessage="errorMsgChasisId" addeditpopup="true">
+					    </div>
+					    <div class="form-group" ng-show="isBSeries()">
+					      	<label for="">Blade ID:</label><error-message ng-show="errorMsgBladeId!=='' && errorMsgBladeId!=undefined" errormsg="errorMsgBladeId"></error-message><help-text text-key="SERVER_AND_ROLES_BLADE_ID"> </help-text>
+					      	<input type="number" class="form-control" placeholder="Enter Blade ID" ng-model="newComputeObj.blade_id" min="1" max="24" required-field-validator addeditpopup="true" errormessage="errorMsgBladeId">
+					    </div>
+					    <div class="form-group" ng-show="isBSeries()">
+					      	<label for="" class="requiredField">Rack Unit ID:</label><help-text text-key="SERVER_AND_ROLES_RACKUNIT_ID"> </help-text>
+					      	<input type="number" class="form-control" placeholder="Enter Rack Unit ID" ng-model="newComputeObj.rack_unit_id" min="1" max="96"/>
+					    </div>
+					    <div class="form-group" ng-show="isCSeries()" class="requiredField">
+					      	<label for="" class="requiredField">CIMC IP:</label><error-message ng-show="errorMsgComputeCIMC!=='' && errorMsgComputeCIMC!=undefined" errormsg="errorMsgComputeCIMC"></error-message>
+					      	<input type="text" class="form-control" placeholder="Enter CIMC IP" ng-model="newComputeObj.cimc_ip" ip-validator errormessage="errorMsgComputeCIMC"  addeditpopup="true"/>
+					    </div>
+					    <div class="form-group" ng-show="isCSeries()">
+					      	<label for="">CIMC User Name:</label>
+					      	<input type="text" class="form-control" placeholder="Enter CIMC User Name" ng-model="newComputeObj.cimc_username" >
+					    </div>
+					    <div class="form-group" ng-show="isCSeries()">
+					      	<label for="">CIMC Password:</label>
+					      	<input type="password" class="form-control" placeholder="Enter CIMC Password" ng-model="newComputeObj.cimc_password" >
+					    </div>
+					    <div class="form-group" ng-show="isCSeries()">
+					      	<label for="">Boot Drive:</label>
+					      	<input type="text" class="form-control" placeholder="Enter Boot Drive" ng-model="newComputeObj.boot_drive" >
+					    </div>
+					    <div class="form-group" ng-show="isCSeries()">
+					      	<label for="">VIC Slot:</label>
+					      	<input type="text" class="form-control" placeholder="Enter VIC Slot" ng-model="newComputeObj.VICSlot" >
+					    </div>
+				  	</form>
+			    </div>
+			    <div class="modal-footer">
+			    	<button type="button" class="btn btn-primary" ng-click="addComputeHandler()">Add Compute</button>
+			      	<button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+			    </div>
+		  </div>
+	
+	</div>
+</div>
+
+<div id="myModal2" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+	
+	  <!-- Modal content-->
+		  <div class="modal-content">
+			    <div class="modal-header">
+
+			      	<h4 class="modal-title">Replace Controller</h4>
+			    </div>
+			    <div class="modal-body">
+			      	<form role="form">
+			      		<div class="form-group">
+					      	<label for="" class="requiredField">Server Name:</label><help-text text-key="SERVER_AND_ROLES_SERVER_NAME"> </help-text>
+					      	<input type="text" class="form-control" placeholder="Enter Server Name" ng-model="replaceControl.name" />
+					    </div>
+					    <div class="form-group">
+					      	<label for="">Rack ID:</label>
+					      	<input type="text" class="form-control" placeholder="Enter Rack ID" value="1" ng-disabled="true" ng-model="replaceControl.rack_id" required-field-validator errormessage="errorMsgStorageRackId" addeditpopup="true"/>
+					    </div>
+					    
+					    <div class="form-group" ng-show="isBSeries()">
+					      	<label for="">Chassis ID:</label>
+					      	<input type="text" class="form-control" placeholder="Enter Chassis ID" value="101" ng-disabled="true" ng-model="replaceControl.chassis_id">
+					    </div>
+					    <div class="form-group" ng-show="isBSeries()">
+					      	<label for="">Blade ID:</label>
+					      	<input type="text" class="form-control" placeholder="Enter Blade ID" value="100" ng-disabled="true" ng-model="replaceControl.blade_id">
+					    </div>
+					    <div class="form-group" ng-show="isBSeries()">
+					      	<label for="">Rack Unit ID:</label>
+					      	<input type="text" class="form-control" placeholder="Enter Rack Unit ID" value="1000" ng-disabled="true" ng-model="replaceControl.rack_unit_id">
+					    </div>
+					    <div class="form-group" ng-show="isCSeries()">
+					      	<label for="" class="requiredField">CIMC IP:</label>
+					      	<input type="text" class="form-control" placeholder="Enter CIMC IP" ng-model="replaceControl.cimc_ip" >
+					    </div>
+					    <div class="form-group" ng-show="isCSeries()">
+					      	<label for="">CIMC User Name:</label>
+					      	<input type="text" class="form-control" placeholder="Enter CIMC User Name" ng-model="replaceControl.cimc_username" >
+					    </div>
+					    <div class="form-group" ng-show="isCSeries()">
+					      	<label for="">CIMC Password:</label>
+					      	<input type="password" class="form-control" placeholder="Enter CIMC Password" ng-model="replaceControl.cimc_password" >
+					    </div>
+					    <div class="form-group" ng-show="isCSeries()">
+					      	<label for="">Boot Drive:</label>
+					      	<input type="text" class="form-control" placeholder="Enter Boot Drive" ng-model="replaceControl.boot_drive" >
+					    </div>
+					    <div class="form-group" ng-show="isCSeries()">
+					      	<label for="">VIC Slot:</label>
+					      	<input type="text" class="form-control" placeholder="Enter VIC Slot" ng-model="replaceControl.VICSlot" >
+					    </div>
+				  	</form>
+			    </div>
+			    <div class="modal-footer">
+			    	<button type="button" class="btn btn-primary" ng-click="replaceHandler()">Replace</button>
+			      	<button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+			    </div>
+		  </div>
+	
+	</div>
+</div>
+
+<div id="AddStoragePopup" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+	
+	  <!-- Modal content-->
+		  <div class="modal-content">
+			    <div class="modal-header">
+
+			      	<h4 class="modal-title">Add Storage</h4>
+			    </div>
+			    <div class="modal-body">
+			      	<form role="form">
+			      		<div class="form-group">
+					      	<label for="email" class="requiredField">Server Name:</label><error-message ng-show="errorMsgStorageServername!=='' && errorMsgStorageServername!=undefined" errormsg="errorMsgStorageServername"></error-message><help-text text-key="SERVER_AND_ROLES_SERVER_NAME"> </help-text>
+					      	<input type="text" class="form-control" placeholder="Enter Server Name" ng-model="newStorageObj.name" maxlength="32" required-field-validator errormessage="errorMsgStorageServername" addeditpopup="true"/>
+					    </div>
+					    <div class="form-group">
+					      	<label for="email" class="requiredField">Rack ID:</label><error-message ng-show="errorMsgStorageRackId!=='' && errorMsgStorageRackId!=undefined" errormsg="errorMsgStorageRackId"></error-message>
+					      	<input type="text" class="form-control" placeholder="Enter Rack ID" ng-model="newStorageObj.rack_id" required-field-validator errormessage="errorMsgStorageRackId" addeditpopup="true"/>
+					    </div>
+					    
+					    <div class="form-group" ng-show="isBSeries()">
+					      	<label for="pwd">Rack Unit ID:</label><help-text text-key="SERVER_AND_ROLES_RACKUNIT_ID"> </help-text>
+					      	<input type="number" class="form-control" placeholder="Enter Rack Unit ID" ng-model="newStorageObj.rack_unit_id" min="1" max="96"/>
+					    </div>
+					    <div class="form-group" ng-show="isCSeries()">
+					      	<label for="pwd" class="requiredField">CIMC IP:</label> <error-message ng-show="errorMsgStorageCIMC!=='' && errorMsgStorageCIMC!=undefined" errormsg="errorMsgStorageCIMC"></error-message>
+					      	<input type="text" class="form-control" placeholder="Enter CIMC IP" ng-model="newStorageObj.cimc_ip" ip-validator errormessage="errorMsgStorageCIMC" tabname="PODMgmt" stepname="AddStorage" addeditpopup="true" />
+					    </div>
+					    <div class="form-group" ng-show="isCSeries()">
+					      	<label for="pwd">CIMC User Name:</label>
+					      	<input type="text" class="form-control" placeholder="Enter CIMC User Name" ng-model="newStorageObj.cimc_username" ng-show="isCSeries()"/>
+					    </div>
+					    <div class="form-group" ng-show="isCSeries()">
+					      	<label for="pwd">CIMC Password:</label>
+					      	<input type="password" class="form-control" placeholder="Enter CIMC Password" ng-model="newStorageObj.cimc_password" ng-show="isCSeries()"/>
+					    </div>
+					    <div class="form-group" ng-show="isCSeries()">
+					      	<label for="pwd">Boot Drive:</label>
+					      	<input type="text" class="form-control" placeholder="Enter Boot Drive" ng-model="newStorageObj.boot_drive" ng-show="isCSeries()"/>
+					    </div>
+					    <div class="form-group" ng-show="isCSeries()">
+					      	<label for="pwd">VIC Slot:</label>
+					      	<input type="text" class="form-control" placeholder="Enter VIC Slot" ng-model="newStorageObj.VICSlot" ng-show="isCSeries()"/>
+					    </div>
+				  	</form>
+			    </div>
+			    <div class="modal-footer">
+			    	<button type="button" class="btn btn-primary" ng-click="addStorageHandler()">Add As a Storage</button>
+			      	<button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+			    </div>
+		  </div>
+	
+	</div>
+</div>
+	<mi-confirmation-popup popuptext="popupText" onproceed="onProceed()" showpopup="isVisible" cancelfunction="onCancel()"></mi-confirmation-popup>
+	<mi-warning-popup popuptext="popupText" iswarningvisible="isWarningVisible"></mi-warning-popup>
+	<div id="warningModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Warning!</h4>
+				</div>
+				<div class="modal-body">
+					<p>{{warningText}}</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+</div>

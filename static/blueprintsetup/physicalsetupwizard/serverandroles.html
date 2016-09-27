@@ -1,0 +1,96 @@
+<div ng-controller="ServerAndRolesCtrl" class="container-fluid mobilePadding" ng-app="MercuryInstaller.BlueprintSetup.PhysicalSetupWizard.ServerAndRoles">
+    <div class="col-md-12 form-group">
+        <label for="userName">{{ 'BLUEPRINTSETUP_PHYSICALSETUP_SERVERANDROLES_SERVERUSERNAME' | translate }}</label>
+        <input type="text" class="form-control" ng-model="serversobject.serverUserName" readonly="readonly"/>
+    </div> 
+    <div class="col-md-12 "> 
+        <label for="Networking" class="requiredField">{{ 'BLUEPRINTSETUP_PHYSICALSETUP_SERVERANDROLES_SERVERANDROLES' | translate }} : </label>
+        <error-message ng-show="errorMsg!=='' && errorMsg!=undefined" errormsg="errorMsg"></error-message>
+        <button type="button" class="btn customcolorwhite btn-md pull-right" ng-click="addEmptyRowToTable()" data-toggle="tooltip" title="Add"  name = "Add"><span class="glyphicon glyphicon-plus"></span></button>
+        <button type="button" class="btn customcolorwhite btn-md pull-right" value="delete" ng-click="deleteSelectedRecords()" data-toggle="tooltip" title="Delete"  name = "delete" ng-disabled="checkStatusforSERVER()"><span class="glyphicon glyphicon-trash"></span> </button>
+        <div class="col-md-12 tableWrapper setMargin paddingZerop" style="overflow: hidden"> 
+            <div ui-grid="gridOptionsForSERVER" ui-grid-selection ui-grid-exporter class="grid" style="height: 193px;" ui-grid-auto-resize ui-grid-resize-columns ui-grid-move-columns></div>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="serverPopup" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h4> Server And Roles </h4>
+                </div>
+                <div class="modal-body" style="padding:40px 50px;">
+                    <form role="form" name="serverObj">
+                        <div class="form-group">
+                            <label for="usrname" class="requiredField"> {{ 'BLUEPRINTSETUP_PHYSICALSETUP_SERVERANDROLES_SERVERANDROLES_SERVERNAME' | translate }} </label> <error-message ng-show="errorMsgServername!=='' && errorMsgServername!=undefined" errormsg="errorMsgServername"></error-message>  <help-text text-key="SERVER_AND_ROLES_SERVER_NAME"> </help-text> 
+                            <input type="text" class="form-control" ng-model="serverObj.serverName" required-field-validator errormessage="errorMsgServername" tabname="PhysicalSetup" stepname="Servers" maxlength="32" addeditpopup="true">
+                        </div>
+                        <div class="form-group" ng-show="isBSeries()">
+                            <label for="psw" class="requiredField"> {{ 'BLUEPRINTSETUP_PHYSICALSETUP_SERVERANDROLES_SERVERANDROLES_SERVERTYPE' | translate }}</label>
+                            <select ng-model="serverObj.serverType" class="form-control" ng-change="updateRolesArray(serverObj)" ng-value="getServerType()">
+                                <option ng-repeat="serverType in serverTypeArray track by $index" value="{{serverType.value}}">{{serverType.name}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group" ng-show="isCSeries()">
+                            <label for="usrname"> {{ 'BLUEPRINTSETUP_PHYSICALSETUP_SERVERANDROLES_SERVERANDROLES_BOOTDRIVE' | translate }}</label>
+                            <select ng-model="serverObj.bootDrive" class="form-control" >
+                                <option value="SDCARD">SDCARD</option>
+                                <option value="LOCALHDD">LOCALHDD</option>
+                            </select>
+                        </div>
+                        <div class="form-group" ng-show="isCSeries()">
+                            <label for="usrname" > {{ 'BLUEPRINTSETUP_PHYSICALSETUP_SERVERANDROLES_SERVERANDROLES_VICSlot' | translate }}</label>
+                            <input type="text" class="form-control" ng-model="serverObj.VICSlot" tabname="PhysicalSetup" stepname="Servers" >
+                        </div>
+                        <div class="form-group" ng-show="isCSeries()">
+                            <label for="usrname" class="requiredField"> {{ 'BLUEPRINTSETUP_PHYSICALSETUP_SERVERANDROLES_SERVERANDROLES_CIMCIP' | translate }} </label> <error-message ng-show="errorMsgCimcip!=='' && errorMsgCimcip!=undefined" errormsg="errorMsgCimcip"></error-message>  <help-text text-key="UCMC_COMMON_UCSMIP"> </help-text>
+                            <input type="text" class="form-control" ng-model="serverObj.CIMC_IP" ip-validator errormessage="errorMsgCimcip" tabname="PhysicalSetup" stepname="Servers" addeditpopup="true">
+                        </div>
+                        <div class="form-group" ng-show="isCSeries()">
+                            <label for="usrname" > {{ 'BLUEPRINTSETUP_PHYSICALSETUP_SERVERANDROLES_SERVERANDROLES_CIMC_USR_NAME' | translate }}</label>
+                            <input type="text" class="form-control" ng-model="serverObj.CIMC_User_Name"  tabname="PhysicalSetup" stepname="Servers"> 
+                        </div>
+                        <div class="form-group" ng-show="isCSeries()">
+                            <label for="usrname" > {{ 'BLUEPRINTSETUP_PHYSICALSETUP_SERVERANDROLES_SERVERANDROLES_CIMC_PASSWORD' | translate }}</label>
+                            <input type="password" autocomplete="off" class="form-control" ng-model="serverObj.CIMC_Password"  tabname="PhysicalSetup" stepname="Servers">
+                        </div>
+                        <div class="form-group">
+                            <label for="usrname" class="requiredField"> {{ 'BLUEPRINTSETUP_PHYSICALSETUP_SERVERANDROLES_SERVERANDROLES_RACKID' | translate }}</label><error-message ng-show="errorMsgRackId!=='' && errorMsgRackId!=undefined" errormsg="errorMsgRackId"></error-message> <help-text text-key="SERVER_AND_ROLES_RACK_ID"> </help-text> 
+                            <input type="text" class="form-control" ng-model="serverObj.rackId" required-field-validator errormessage="errorMsgRackId" tabname="PhysicalSetup" stepname="Servers" addeditpopup="true">
+                        </div>
+                        <div class="form-group" ng-show="isBSeries()">
+                            <label for="usrname" ng-class="isServerTypeBlade(serverObj)==true ? 'requiredField' : ''"> {{ 'BLUEPRINTSETUP_PHYSICALSETUP_SERVERANDROLES_SERVERANDROLES_CHASSISID' | translate }}</label> <error-message ng-show="errorMsgChassisId!=='' && errorMsgChassisId!=undefined" errormsg="errorMsgChassisId"></error-message>  <help-text ng-show="isServerTypeBlade(serverObj)" text-key="SERVER_AND_ROLES_CHASSIS_ID"> </help-text> 
+                            <input type="number" class="form-control"  ng-model="serverObj.chasisId" required-field-validator errormessage="errorMsgChassisId" tabname="PhysicalSetup" stepname="Servers" min="1" max="8" ng-disabled="!isServerTypeBlade(serverObj)" addeditpopup="true"/>
+                        </div>
+                        <div class="form-group" ng-show="isBSeries()">
+                            <label for="usrname" ng-class="isServerTypeBlade(serverObj)==true ? 'requiredField' : ''"> {{ 'BLUEPRINTSETUP_PHYSICALSETUP_SERVERANDROLES_SERVERANDROLES_BLADEID' | translate }}</label>  <error-message ng-show="errorMsgBladeId!=='' && errorMsgBladeId!=undefined" errormsg="errorMsgBladeId"></error-message>  <help-text text-key="SERVER_AND_ROLES_BLADE_ID"> </help-text>
+                            <input type="number" class="form-control"  ng-model="serverObj.bladeId" required-field-validator errormessage="errorMsgBladeId" tabname="PhysicalSetup" stepname="Servers" min="1" max="24" ng-disabled="!isServerTypeBlade(serverObj)" addeditpopup="true"/>
+                        </div>
+                        <div class="form-group" ng-show="isBSeries()">
+                            <label for="usrname" class="requiredField" ng-class="isServerTypeRack(serverObj)==false?'':'requiredField'"> {{ 'BLUEPRINTSETUP_PHYSICALSETUP_SERVERANDROLES_SERVERANDROLES_RACKUNITID' | translate }}</label>  <error-message ng-show="errorMsgRackunitId!=='' && errorMsgRackunitId!=undefined" errormsg="errorMsgRackunitId"></error-message> <help-text text-key="SERVER_AND_ROLES_RACKUNIT_ID"> </help-text> 
+                            <input type="number" class="form-control" ng-model="serverObj.rackUnitId" required-field-validator tabname="PhysicalSetup" errormessage="errorMsgRackunitId" stepname="Servers"  min="1" max="96" ng-disabled="!isServerTypeRack(serverObj)" addeditpopup="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="usrname" class="requiredField"> {{ 'BLUEPRINTSETUP_PHYSICALSETUP_SERVERANDROLES_SERVERANDROLES_ROLE' | translate }}</label>
+                            <select class="form-control" ng-model="serverObj.role">
+                                <option ng-repeat = "role in rolesArray track by $index" value="{{role.value}}">{{role.name}}</option>
+                            </select> 
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary pull-left"  ng-click="SaveServerDetails(serverObj)"> Save</button>
+                    <button type="submit" class="btn btn-primary pull-left" data-dismiss="modal"> Cancel</button>
+                </div>
+            </div>
+
+        </div>
+    </div> 
+    <mi-confirmation-popup popuptext="popupText" onproceed="onProceed()" showpopup="isVisible" cancelfunction="onCancel()"></mi-confirmation-popup>
+</div>
+

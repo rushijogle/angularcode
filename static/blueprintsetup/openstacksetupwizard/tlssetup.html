@@ -1,0 +1,34 @@
+<div ng-app="mercuryInstaller.blueprintSetup.openstackSetupWizard.tlsSetup" ng-controller="TLSCtrl">
+    <form role="form">
+
+        <div class="col-md-12 mobilePadding">
+            <div class="col-md-12 ">
+                <div class="form-group">
+                    <label for="" >{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_TLS_EXTERNAL_LB_VIP_TLS' | translate }}</label>
+                    <input id="externalLBVIPTLS" type="checkbox"  ng-model="tlsobj.externallbviptls" ng-click="checkUserInputsForTLS()">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mobilePadding">
+            <div class="col-md-12 ">
+                <div class="form-group">
+                    <label for="" >{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_TLS_EXTERNAL_LB_VIP_CERT' | translate }}</label> <error-message ng-show="errorMsglbvipcert!=='' && errorMsglbvipcert!=undefined" errormsg="errorMsglbvipcert"></error-message>
+                    <input class="form-control" id="externalLBVIPCert" type="text" required-field-validator errormessage="errorMsglbvipcert" placeholder="External LB VIP Cert" ng-model="tlsobj.externallbvipcert"  ng-disabled="!tlsobj.externallbviptls" ng-blur="checkUserInputsForTLS()">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mobilePadding">
+            <div class="col-md-12 ">
+                <div class="form-group">
+                    <label for="" >{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_TLS_EXTERNAL_LB_VIP_CACERT' | translate }}</label> <error-message ng-show="errorMsgprovvipvacert!=='' && errorMsgprovvipvacert!=undefined" errormsg="errorMsgprovvipvacert"></error-message>
+                    <input class="form-control" id="externalLBVIPCacert" type="text" required-field-validator errormessage="errorMsgprovvipvacert" placeholder="External LB VIP Cacert" ng-model="tlsobj.externallbvipcacert"  ng-disabled="!tlsobj.externallbviptls" ng-blur="checkUserInputsForTLS()">
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+
+</div>

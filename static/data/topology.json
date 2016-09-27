@@ -1,0 +1,148 @@
+{
+  "external_lb_vip_address": "172.29.86.18",
+  "MECHANISM_DRIVERS": "linuxbridge",
+  "ROLES": {
+    "block_storage": null,
+    "control": [
+      "control-server-2",
+      "control-server-3"
+    ],
+    "networker": null,
+    "compute": [
+      "compute-server-2",
+      "compute-server-3"
+    ],
+    "object_storage": null
+  },
+  "L3_PHYSICAL_INTERFACE": "",
+  "MON_HOSTS": "172.29.74.26,172.29.74.27",
+  "SECRET_UUID": "01caf8ee-21d9-4486-84fd-79b353270b56",
+  "GLANCE_CLIENT_KEY": "AQBATEVVYFUDFRAArbWAL5BN4yTJGdKPVwVs+A==",
+  "VIRTUAL_ROUTER_ID": 17,
+  "TENANT_NETWORK_TYPES": "VXLAN",
+  "OPTIONAL_SERVICE_LIST": [
+    "cloudpulse"
+  ],
+  "SERVER_COMMON": {
+    "server_username": "root"
+  },
+  "NETWORKING": {
+    "https_proxy_servers": [
+      "proxy-wsa.esl.cisco.com:80"
+    ],
+    "http_proxy_servers": [
+      "proxy-wsa.esl.cisco.com:80"
+    ],
+    "ntp_servers": [
+      "1.ntp.esl.cisco.com",
+      "2.ntp.esl.cisco.com"
+    ],
+    "domain_name_servers": [
+      "171.70.168.183"
+    ],
+    "domain_name": "ctocllab.cisco.com",
+    "networks": [
+      {
+        "subnet": "172.29.86.0/26",
+        "segments": [
+          "api"
+        ],
+        "gateway": "172.29.86.1",
+        "vlan_id": 860
+      },
+      {
+        "subnet": "10.1.1.0/24",
+        "segments": [
+          "management",
+          "provision"
+        ],
+        "vlan_id": 3333,
+        "gateway": "10.1.1.254",
+        "pool": [
+          "10.1.1.11 to 10.1.1.20"
+        ]
+      },
+      {
+        "subnet": "10.2.2.0/24",
+        "segments": [
+          "tenant"
+        ],
+        "vlan_id": "3334",
+        "gateway": "10.2.2.1",
+        "pool": [
+          "10.2.2.11 to 10.2.2.20"
+        ]
+      },
+      {
+        "segments": [
+          "external"
+        ],
+        "vlan_id": 110
+      },
+      {
+        "segments": [
+          "provider"
+        ],
+        "vlan_id": "None"
+      }
+    ]
+  },
+  "internal_lb_vip_address": "10.1.1.10",
+  "VMTP_VALIDATION": {
+    "EXT_NET": {
+      "NET_SUBNET": "10.30.116.224/28",
+      "DNS_SERVER": "171.70.168.183",
+      "NET_IP_END": "10.30.116.231",
+      "NET_NAME": "ext-net",
+      "NET_GATEWAY": "10.30.116.225",
+      "NET_IP_START": "10.30.116.228"
+    }
+  },
+  "SERVERS": {
+    "control-server-2": {
+      "rack_info": {
+        "rack_id": "RackB"
+      },
+      "cimc_info": {
+        "cimc_ip": "172.31.230.100"
+      }
+    },
+    "compute-server-2": {
+      "rack_info": {
+        "rack_id": "RackF"
+      },
+      "cimc_info": {
+        "cimc_ip": "172.31.230.103"
+      }
+    }
+  },
+  "COBBLER": {
+    "kickstart": {
+      "block_storage": "storage-flexflash-c240m4.ks",
+      "control": "control-flexflash-c220m4.ks",
+      "compute": "compute-flexflash-c220m4.ks"
+    },
+    "admin_password_hash": "$6$.oKEqTDhB6XJjca4$V4QRX.7nUQ560rcAXjVCDgCxISZpwti.0rfnr/i24mvC1gQeyaQe0e.B/g/xq5/HdfYVEFXkYf1f72rXLfWTx0",
+    "admin_username": "root",
+    "cobbler_username": "cobbler",
+    "host_profile": "RHEL7.2-x86_64",
+    "cobbler_password": "cobbler"
+  },
+  "GLANCE_RBD_POOL": "images",
+  "CINDER_CLIENT_KEY": "AQAoTEVVMAErAxAAwxV7/dJvc+pBQRho7Ui0Bg==",
+  "MON_MEMBERS": "sj19-lab-ceph01,sj19-lab-ceph02",
+  "TYPE_DRIVERS": "flat,vlan",
+  "STORE_BACKEND": "ceph",
+  "ADMIN_TENANT_NAME": "admin",
+  "VOLUME_DRIVER": "ceph",
+  "ADMIN_USER_PASSWORD": "cisco123",
+  "CIMC-COMMON": {
+    "cimc_password": "lab",
+    "cimc_username": "admin"
+  },
+  "ADMIN_USER": "admin",
+  "CINDER_RBD_POOL": "volumes",
+  "NOVA_BOOT_FROM": "ceph",
+  "CLUSTER_ID": "e2a597ff-105d-4266-b322-4887ff19212a",
+  "TENANT_VLAN_RANGES": "3334:3335"
+}

@@ -1,0 +1,77 @@
+<div ng-controller="DashboardCtrl">
+    <h4>
+        <div class="leftfloatingdiv">
+            <div>{{ 'DASHBOARD_BLUEPRINTNAME' | translate }} : <strong>{{deployedBlueprint.name}} </strong></div>
+            <div class="customMargin">{{'DASHBOARD_STATUS' | translate}} : <span ng-class="setclasasperstatus()"><strong>{{deployedBlueprint.status}}</strong></span></div>
+        </div>
+        <div class="rightfloatingdiv">
+            <div class="customMargin">{{'CURRENT_OPERATION' | translate}} : <span ><strong>{{activeOperationObject.operation}}</strong></span> </div><div> Status : <span ><strong>{{activeOperationObject.status}}</strong></span></div>
+        </div>
+    </h4>
+
+        <br/><br/><br/><br/>
+        <mi-dashboard dashboardobj="statusObject" blueprintname="deployedBlueprint.name"></mi-dashboard>
+        <br/><br/><br/>
+
+
+
+    <div class="modal fade" id="ValidationStatus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Deployed Blueprint : <b>{{deployedBlueprint.name}}</b>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-group" id="accordion">
+                        <h4> Status :- <span class="label" ng-class="validationstatus">{{statusVal}}</span></h4>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a href="javascript:;" data-toggle="collapse" data-parent="#collapse"
+                                       data-target="#collapse1" class="accordianAnchor">Software Validation</a>
+                                </h4>
+                            </div>
+                            <div id="collapse1" class="panel-collapse collapse in overFlowClass">
+                                <div class= "panelPadding panel-body overFlowClass">
+                                    <div class="alert alert-info" ng-hide="isDataAvailableforSoftware">
+                                        <strong>No Data Available.</strong>
+                                    </div>
+                                    
+                                    <div ui-grid="gridOptionsForsoftwareval" ui-grid-exporter
+                                         class="grid offlinevalidationtable" style="height: 240px;" ui-grid-auto-resize ui-grid-resize-columns ui-grid-move-columns></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a href="javascript:;" data-toggle="collapse" data-parent="#collapse"
+                                       data-target="#collapse2" class="accordianAnchor collapsed">Hardware
+                                        Validation</a>
+                                </h4>
+                            </div>
+                            <div id="collapse2" class="panel-collapse collapse overFlowClass">
+                                <div class="panelPadding panel-body overFlowClass">
+                                    <div class="alert alert-info" ng-hide="isDataAvailableforHardware">
+                                        <strong>No Data Available.</strong>
+                                    </div>
+                                    
+                                    <div ui-grid="gridOptionsForhardwareval" ui-grid-exporter
+                                         class="grid offlinevalidationtable" style="height: 240px;" ui-grid-auto-resize ui-grid-resize-columns ui-grid-move-columns></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

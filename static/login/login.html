@@ -1,0 +1,33 @@
+
+<form name="form" ng-submit="login()" role="form">
+
+	<div>
+	     <div class="col-md-12">
+	         <div class="col-md-8">
+	             <h2 class="customMargin">Sign in</h2>
+	             <p class="customMargin"> Please use your user name and password. </p>
+                <div class="form-group"> 
+	             <label class="customMargin" for="username">Username:</label>
+                    <input type="text" class="form-control customMargin" name="username" ng-model="username" required-field-validator ng-blur="enableLogin()">
+	             <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
+                </div>
+                <div class="form-group">
+	             <label for="password" class="customMargin">Password:</label>
+                    <input type="password" class="form-control customMargin" name="password" id="password" ng-model="password" required-field-validator ng-blur="enableLogin()">
+	             <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
+	        	</div>
+	        	<div class="col-md-2 leftpadding-0">
+	        		<button class="btn btn-default customMargin" ng-disabled="!enableLogin()" type="submit">Sign in</button>
+	        	</div>
+                
+                <div class="form-actions">
+       			
+<!-- 	       			<img ng-if="dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /> -->
+	        	</div>
+	         </div>
+	         <div ng-show="error" class="col-md-8 errorTextColor">{{error}}</div>
+             
+	     </div>
+     </div>
+	
+</form>

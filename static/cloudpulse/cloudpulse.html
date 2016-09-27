@@ -1,0 +1,35 @@
+<h4>Cloudpulse Monitoring for : <strong>{{deployedblueprintname.name}} </strong></h4>
+<div class="row">
+    <div class="col-md-12">
+         <div class="col-md-4 pull-right addheightblueprintmanagement">
+            <div class="form-group col-xs-2">
+                <button type="button" class="btn btn-md customcolorwhite " value="delete" ng-disabled="isava" ng-click="refreshCpluse()" data-toggle="tooltip" title="Refresh Cloud Pulse" ng-disabled="checkStatus()"><span class="glyphicon glyphicon-refresh"></span></button>
+            </div>
+
+            <div class="form-group col-xs-10 removePaddingBlueprintManagement">
+                <div class="input-group">
+                    <label class="input-group-addon" id="basic-addon3"><span class="glyphicon glyphicon-search"></span> </label> 
+                    <input class="form-control" ng-change="searchData()" ng-model="searchText" aria-describedby="basic-addon3" placeholder="{{ 'PREINSTALL_BLUEPRINTMANAGEMENT_BLUEPRINTSEARCHTEXT' | translate }}">
+                </div>
+            </div>
+
+        </div>
+        
+        
+         <div class="btn-group inline pull-left" > 
+        <select id="sel" class="input-block-level selectboxcss pull-left" ng-model="list_category" ng-options="obj.id as obj.name group by obj.group for obj in list_categories.data">    
+        
+    </select>
+         
+        <button type="button" class="btn btn-primary leftmarginset" ng-click="runTest()" ng-disabled="checkIfAnyOperationRunning()" title="{{getTitle()}}">Run Tests</button>
+        </div>
+    </div>
+    <div class="col-md-12 logoMargin" >
+        <div ui-grid="gridOptionsForcloudPulse" ui-grid-exporter class="grid" style="height: 380px" ui-grid-auto-resize ui-grid-resize-columns ui-grid-move-columns>
+            <div class="watermark" ng-if="isDatafound">No data available</div>
+
+        </div>
+    </div>
+    
+    
+</div>

@@ -1,0 +1,240 @@
+
+<div ng-controller="NetworkingCtrl" ng-app="MercuryInstaller.BlueprintSetup.PhysicalSetupWizard.Networking" class="container-fluid tabContentPadding" ng-init="tableSortNetworking()"> 
+    <form role="form" ng-submit="Saventpdetails()" novalidate>
+        <div class="form-group">
+            <label for="domainName" class="requiredField">{{ 'BLUEPRINTSETUP_PHYSICALSETUP_NETWORKING_DOMAINNAME' | translate }} : </label>
+            <input type="text" class="form-control" title="Tooltip on left" id="domainName" ng-model="networkconf.domain_name" required-field-validator ng-blur="checkUserInputsForNetworking()">
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6"> 
+                    <label for="httpServer" class="requiredField">{{ 'BLUEPRINTSETUP_PHYSICALSETUP_NETWORKING_NTPSERVER' | translate }} : </label>
+                    <div id="toolbar" class="btn-group pull-right btn-sm noPadding">
+                        <button type="button" class="btn btn-md customcolorwhite pull-right" ng-click="addntpdetails()" title="Add" id="addntpbtn" ng-disabled="networkconf.ntp_servers.length == 4?true:false"><span class="glyphicon glyphicon-plus" ></span></button>
+                        <button type="button" class="btn btn-md customcolorwhite" value="Delete" ng-click="deleteserverNameNTP()"  title="Delete" ng-disabled="checkStatusforNTP()"><span class="glyphicon glyphicon-trash"></span></button>
+                    </div>
+                    <help-text text-key="NETWORKING_NTP_SERVERS" class="helpTextcss"> </help-text> 
+                    <div class="col-md-12 tableWrapper paddingZerop" style="overflow: hidden">
+                        <div ui-grid="gridOptionsForNTP" ui-grid-selection ui-grid-exporter class="grid" style="height: 178px;" ui-grid-auto-resize ui-grid-resize-columns ui-grid-move-columns></div>
+
+                    </div>
+                </div>
+                <div class="col-md-6"> 
+                    <label for="httpServer" class="requiredField">{{ 'BLUEPRINTSETUP_PHYSICALSETUP_NETWORKING_DOMAINNAMESERVER' | translate }} : </label>
+                    <div id="toolbar" class="btn-group pull-right btn-sm noPadding">
+                        <button type="button" class="btn btn-md customcolorwhite pull-right" ng-click="adddnsdetails()" title='Add' id="adddnsbtn" ng-disabled="networkconf.domain_name_servers.length == 3?true:false"><span class="glyphicon glyphicon-plus"></span></button>
+                        <button type="button" class="btn customcolorwhite btn-md" value="delete" ng-click="deleteserverNameDNS()" ng-disabled="checkStatusforDNS()" title="Delete"><span class="glyphicon glyphicon-trash"></span></button>
+                    </div>
+                    <help-text text-key="NETWORKING_DOMAIN_NAME_SERVERS" class="helpTextcss"> </help-text> 
+
+                    <div class="col-md-12 tableWrapper paddingZerop" style="overflow: hidden">
+                        <div ui-grid="gridOptionsForDNS" ui-grid-selection ui-grid-exporter class="grid" style="height: 178px" ui-grid-auto-resize ui-grid-resize-columns ui-grid-move-columns></div>
+
+                    </div>
+                </div>
+                <div class="col-md-6"> 
+                    <label for="httpproxy" >{{ 'BLUEPRINTSETUP_PHYSICALSETUP_NETWORKING_HTTPPROXY' | translate }}  : </label>
+                    <div id="toolbar" class="btn-group pull-right btn-sm noPadding">
+                        <button type="button" class="btn btn-md customcolorwhite pull-right" ng-click="addhttpdetails()" title="Add" id="addhttpbtn"><span class="glyphicon glyphicon-plus"></span></button>
+                        <button type="button" class="btn customcolorwhite btn-md" value="delete" ng-click="deleteserverNameHTTP()" ng-disabled="checkStatusforHTTP()" title="Delete"><span class="glyphicon glyphicon-trash"></span></button>
+                    </div>
+                    <div class="col-md-12 tableWrapper paddingZerop" style="overflow: hidden">
+                         <div ui-grid="gridOptionsForHTTP" ui-grid-selection ui-grid-exporter class="grid" style="height: 178px" ui-grid-auto-resize ui-grid-resize-columns ui-grid-move-columns></div>
+                    </div>
+                </div>
+                <div class="col-md-6"> 
+                    <label for="httpsproxy" >{{ 'BLUEPRINTSETUP_PHYSICALSETUP_NETWORKING_HTTPSPROXY' | translate }} : </label>
+                    <div id="toolbar" class="btn-group pull-right btn-sm noPadding">
+                        <button type="button" class="btn btn-md customcolorwhite pull-right" ng-click="addhttpsproxydetails()" title='Add' id="addhttpsbtn"><span class="glyphicon glyphicon-plus"></span></button>
+                        <button type="button" class="btn customcolorwhite btn-md" value="delete" ng-click="deleteserverNameHTTPS()" ng-disabled="checkStatusforHTTPS()" title="Delete"><span class="glyphicon glyphicon-trash"></span></button>
+                    </div>
+                    <div class="col-md-12 tableWrapper paddingZerop" style="overflow: hidden">
+                         <div ui-grid="gridOptionsForHTTPS" ui-grid-selection ui-grid-exporter class="grid" style="height: 178px" ui-grid-auto-resize ui-grid-resize-columns ui-grid-move-columns></div>
+                    </div>
+                </div>
+                <div class="col-md-12 "> 
+                    <label for="Networking" class="requiredField">{{ 'BLUEPRINTSETUP_PHYSICALSETUP_NETWORKING_NETWORKS' | translate }} : </label>
+                    <button type="button" class="btn customcolorwhite btn-md pull-right" ng-click="addnwdetails()" title='Add' id="addnetworkbtn"><span class="glyphicon glyphicon-plus"></span></button>
+                    <button type="button" class="btn customcolorwhite btn-md pull-right" value="delete" ng-click="deleteserverNameNETWORKING()"  ng-disabled="checkStatusforNETWORKING()" title="Delete"><span class="glyphicon glyphicon-trash"></span> </button>
+                    <div class="col-md-12 tableWrapper setMargin paddingZerop" style="overflow: hidden">
+                        <div ui-grid="gridOptionsForNETWORKING" ui-grid-selection ui-grid-exporter class="grid" style="height: 178px" ui-grid-auto-resize ui-grid-resize-columns ui-grid-move-columns></div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </form>
+
+    <div class="modal fade" id="ntpServer" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h4> {{addEditNTPServer}} </h4>
+                </div>
+                <div class="modal-body" style="padding:40px 50px;">
+                    <form role="form" name="serverName">
+                        <div class="form-group">
+                            <label for="httpServer" >{{ 'BLUEPRINTSETUP_PHYSICALSETUP_NETWORKING_NTPSERVER' | translate }} : </label> <error-message ng-show="errorMsgNTP!=='' && errorMsgNTP!=undefined" errormsg="errorMsgNTP"></error-message>
+                            <input type="text" class="form-control" ng-model="serverName.name" ip-fqdn-validator errormessage="errorMsgNTP"  addeditpopup="true">
+                        </div>
+
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary pull-left" ng-click="Saventpdetails(serverName)">Save</button>
+                    <button type="submit" class="btn btn-primary pull-left" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+
+        </div>
+    </div> 
+
+
+    <div class="modal fade" id="DNSServer" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h4> {{addEditDNSServer}} </h4>
+                </div>
+                <div class="modal-body" style="padding:40px 50px;">
+                    <form role="form" name="domainname">
+                        <div class="form-group">
+                            <label for="httpServer" >{{ 'BLUEPRINTSETUP_PHYSICALSETUP_NETWORKING_DOMAINNAMESERVER' | translate }} :  </label><error-message ng-show="errorMsgDNS!=='' && errorMsgDNS!=undefined" errormsg="errorMsgDNS"></error-message>
+
+                            <input type="text" class="form-control" ng-model="domainname.name" ip-fqdn-validator errormessage="errorMsgDNS" addeditpopup="true">
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary pull-left"  ng-click="Savednsdetails(domainname)"> Save</button>
+                    <button type="submit" class="btn btn-primary pull-left" data-dismiss="modal"> Cancel</button>
+                </div>
+            </div>
+
+        </div>
+    </div> 
+
+    <div class="modal fade" id="HTTPServer" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h4> {{addEditHTTPProxy}} </h4>
+                </div>
+                <div class="modal-body" style="padding:40px 50px;">
+                    <form role="form" name="httpProxy">
+                        <div class="form-group">
+                            <label for="httpServer" >{{ 'BLUEPRINTSETUP_PHYSICALSETUP_NETWORKING_HTTPPROXY' | translate }}  : </label><error-message ng-show="errorMsgHTTP!=='' && errorMsgHTTP!=undefined" errormsg="errorMsgHTTP"></error-message>
+
+                            <input type="text" class="form-control" ng-model="httpProxy.name" proxy-validator errormessage="errorMsgHTTP"  addeditpopup="true">
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary pull-left"  ng-click="Savehttpdetails(httpProxy)"> Save</button>
+                    <button type="submit" class="btn btn-primary pull-left" data-dismiss="modal"> Cancel</button>
+                </div>
+            </div>
+
+        </div>
+    </div> 
+
+    <div class="modal fade" id="HTTPsServer" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h4> {{addEditHTTPSServer}} </h4>
+                </div>
+                <div class="modal-body" style="padding:40px 50px;">
+                    <form role="form" name="httpsProxy">
+                        <div class="form-group">
+                            <label for="httpServer" >{{ 'BLUEPRINTSETUP_PHYSICALSETUP_NETWORKING_HTTPSPROXY' | translate }} : </label><error-message ng-show="errorMsgHTTPS!=='' && errorMsgHTTPS!=undefined" errormsg="errorMsgHTTPS"></error-message>
+                            <input type="text" class="form-control" ng-model="httpsProxy.name" proxy-validator errormessage="errorMsgHTTPS"  addeditpopup="true">
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary pull-left"  ng-click="Savehttpsproxydetails(httpsProxy)"> Save</button>
+                    <button type="submit" class="btn btn-primary pull-left" data-dismiss="modal"> Cancel</button>
+                </div>
+            </div>
+
+        </div>
+    </div> 
+
+    <div class="modal fade" id="addEditNetworks" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h4>{{currentActionName}}</h4>
+                </div>
+                <div class="modal-body" style="padding:40px 50px;">
+                    <form role="form">
+                        <div class="form-group">
+                            <label for="httpServer" class="requiredField">{{ 'BLUEPRINTSETUP_PHYSICALSETUP_NETWORKING_NETWORKS_VLAN' | translate }} : </label> <error-message ng-show="errorMsgVlan!=='' && errorMsgVlan!=undefined" errormsg="errorMsgVlan"></error-message><help-text text-key="NETWORKING_VLAN_ID"> </help-text> 
+                            <input type="text" class="form-control" ng-model="NetworkingDetail.vlanInput"  vlanvalidator errormessage="errorMsgVlan" platformtype="platformtype" tenanttype="sharedobject.tenantNetwork" segment="NetworkingDetail.segmentInput" cephmode="sharedobject.cephMode" addeditpopup="true" ng-disabled="checkForSegmentType(NetworkingDetail)">
+                        </div>
+                        <div class="form-group">
+                            <label for="httpServer" class="requiredField">{{ 'BLUEPRINTSETUP_PHYSICALSETUP_NETWORKING_NETWORKS_SEGMENT' | translate }} : </label>
+                            <div>
+                                <multiselect platformtype="platformtype" selectedsegments="NetworkingDetail.segmentInput" currentnetworkobject="NetworkingDetail"></multiselect>
+                            </div>	
+                        </div>
+                        <div class="form-group">
+                            <label for="httpServer" ng-class="checkForSegmentValue(NetworkingDetail, 'subnet')==true?'':'requiredField'">{{ 'BLUEPRINTSETUP_PHYSICALSETUP_NETWORKING_NETWORKS_SUBNET' | translate }} : </label> <error-message ng-show="errorMsgSubnet!=='' && errorMsgSubnet!=undefined" errormsg="errorMsgSubnet"></error-message>
+                            <input type="text" class="form-control" ng-model="NetworkingDetail.SubwayInput" subnet-validator errormessage="errorMsgSubnet" tabname="PhysicalSetup" stepname="Networking" ng-disabled="checkForSegmentValue(NetworkingDetail, 'subnet')" addeditpopup="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="httpServer" class='requiredField'>{{ 'BLUEPRINTSETUP_PHYSICALSETUP_NETWORKING_NETWORKS_BUILDNODE' | translate }} : </label> <error-message ng-show="errorMsgBuildNode!=='' && errorMsgBuildNode!=undefined" errormsg="errorMsgBuildNode"></error-message>
+                            <input type="text" class="form-control" ng-model="NetworkingDetail.buildNode" ip-validator errormessage="errorMsgBuildNode" tabname="PhysicalSetup" stepname="Networking"  addeditpopup="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="httpServer" ng-class="checkForSegmentValue(NetworkingDetail, 'gateway')==true?'':'requiredField'">{{ 'BLUEPRINTSETUP_PHYSICALSETUP_NETWORKING_NETWORKS_GATEWAY' | translate }} : </label> <error-message ng-show="errorMsgGateway!=='' && errorMsgGateway!=undefined" errormsg="errorMsgGateway"></error-message>
+                            <input type="text" class="form-control" ng-model="NetworkingDetail.gatwayInput" ip-validator errormessage="errorMsgGateway" tabname="PhysicalSetup" stepname="Networking" ng-disabled="checkForSegmentValue(NetworkingDetail, 'gateway')" addeditpopup="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="httpServer" ng-class="checkForSegmentValue(NetworkingDetail, 'pool')==true?'':'requiredField'">{{ 'BLUEPRINTSETUP_PHYSICALSETUP_NETWORKING_NETWORKS_POOL' | translate }} : </label> <span class="note">(multiple pool ranges should be comma separated)</span>  <error-message ng-show="errorMsgPool!=='' && errorMsgPool!=undefined" errormsg="errorMsgPool"></error-message> <help-text text-key="NETWORKING_POOL" ng-hide="checkForSegmentValue(NetworkingDetail, 'pool')"> </help-text> 
+                            <input type="text" class="form-control"  ng-model="NetworkingDetail.pool" required-field-validator errormessage="errorMsgPool" tabname="PhysicalSetup" stepname="Networking" ng-disabled="checkForSegmentValue(NetworkingDetail, 'pool')" addeditpopup="true">
+                        </div>
+                        <div class="form-group" ng-show="isCSeries()">
+                            <label for="httpServer" class="requiredField">{{ 'BLUEPRINTSETUP_PHYSICALSETUP_NETWORKING_NETWORKS_DEFAULTROOT' | translate }} : </label>
+                            <input  type="checkbox" ng-model="NetworkingDetail.defroute" />
+                        </div>
+                        <div>
+                            <span class="errorTextColor">{{addEditErrorMsg}}</span>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary pull-left" ng-click="savenetworkingproxydetails(NetworkingDetail)">Save</button>
+                    <button type="submit" class="btn btn-primary pull-left" data-dismiss="modal"> Cancel</button>
+                </div>
+            </div>
+
+        </div>
+    </div> 
+    <mi-confirmation-popup popuptext="popupText" onproceed="onProceed()" showpopup="isVisible" cancelfunction="onCancel()"></mi-confirmation-popup>
+</div>
+
+
+

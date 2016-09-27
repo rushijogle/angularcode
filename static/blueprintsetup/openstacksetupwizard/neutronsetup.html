@@ -1,0 +1,42 @@
+<div class="container-fluid" ng-app="mercuryInstaller.blueprintSetup.openstackSetupWizard.neutron" ng-controller="NeutronCtrl">
+    <form role="form" class="col-md-6">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="inputdefault" class="requiredField">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_NEUTRON_TENANTNETWORKTYPE' | translate }}</label>
+                        <select class="form-control" id="Tenanttype" ng-model="neutronobj.tenantNwtype" ng-change="checkUserInputsForNeutron()" ng-disabled="true">
+                            <option value="VXLAN">VXLAN</option>
+                            <option value="VLAN">VLAN</option>
+                        </select>
+                    <!-- <input class="form-control" id="inputdefault" type="text" ng-model = "neutronobj.tenantNwtype" check-required-newtron ng-blur="checkUserInputsForNeutron()"> -->
+                </div>
+            </div>
+            <div class="col-md-6" ng-show="isOVSVLAN()">
+                <div class="form-group">
+                    <label for="inputlg" class="requiredField">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_NEUTRON_TENANTVLANRANGES' | translate }}</label><help-text text-key="OPENSTACK_NEUTRON_NETWORK_VLAN_RANGES"> </help-text>
+                    <input class="form-control" id="inputlg" type="text" ng-model="neutronobj.vlanRanges" required-field-validator ng-blur="checkUserInputsForNeutron()">
+                </div>
+            </div>
+           
+
+            <div class="col-md-6" >
+                <div class="form-group">
+                    <label for="inputsm" class="requiredField">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_NEUTRON_MECHANISMDRIVERS' | translate }}</label><error-message ng-show="errorMsgMechDriver!=='' && errorMsgMechDriver!=undefined" errormsg="errorMsgMechDriver"></error-message>
+                    <input class="form-control" id="inputsm" type="text"  ng-model="neutronobj.mechanismDrives" required-field-validator errormessage="errorMsgMechDriver" tabname="OpenstackSetup" stepname="Neutron" ng-blur="checkUserInputsForNeutron()" readonly="readonly">
+                </div>
+            </div>
+            <div class="col-md-6">
+            	<div style="display:inline-block">
+                    <label for="inputsm" >{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_NEUTRON_NUMA_SUPPORT' | translate }}</label>
+                    <input  id="inputsm" type="checkbox"  ng-model="neutronobj.enableNumaSupport">
+                </div>
+                &nbsp;&nbsp;&nbsp;
+            	<div style="display:inline-block" ng-show="checkIfBSeries()">
+                    <label for="inputsm" >{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_NEUTRON_ENABLE_JUMBO_FRAMES' | translate }}</label>
+                    <input id="inputsm" type="checkbox"  ng-model="neutronobj.enableJumboFrame" >
+                </div>
+            </div>
+        </div>
+    </form>  
+
+</div>

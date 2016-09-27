@@ -1,0 +1,58 @@
+<div ng-app="MercuryInstaller.BlueprintSetup.PhysicalSetupWizard.UCSM" ng-controller="UCSMcontroller">
+    <form role="form">
+        
+            <div class="col-md-6 mobilePadding">
+                <div class="col-md-12 ">
+                    <div class="form-group">
+                        <label for="username" class="requiredField">{{ 'BLUEPRINTSETUP_PHYSICALSETUP_UCSMCOMMON_USERNAME' | translate }}</label> <error-message ng-show="errorMsgUsrName!=='' && errorMsgUsrName!=undefined" errormsg="errorMsgUsrName"></error-message>
+                        <input class="form-control" id="username" type="text" placeholder="username" ng-model="ucsmobj.username" required-field-Validator errormessage="errorMsgUsrName" tabname="PhysicalSetup" stepname="UCSM" ng-blur="ckeckUserInputsForUCSM()" readonly="readonly">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mobilePadding">
+                <div class="col-md-12 ">
+                    <div class="form-group">
+                        <label for="password" class="requiredField">{{ 'BLUEPRINTSETUP_PHYSICALSETUP_UCSMCOMMON_PASSWORD' | translate }}</label> <error-message ng-show="errorMsgUsrPwd!=='' && errorMsgUsrPwd!=undefined" errormsg="errorMsgUsrPwd"></error-message>
+                        <input class="form-control" id="password" type="password"  placeholder="password" ng-model="ucsmobj.password" required-field-Validator errormessage="errorMsgUsrPwd" tabname="PhysicalSetup" stepname="UCSM" ng-blur="ckeckUserInputsForUCSM()">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mobilePadding">
+                <div class="col-md-12 ">
+                    <div class="form-group">
+                    <label for="ucsmIP" class="requiredField">{{ 'BLUEPRINTSETUP_PHYSICALSETUP_UCSMCOMMON_UCSMIP' | translate }}</label> <help-text text-key="UCMC_COMMON_UCSMIP"> </help-text> <error-message ng-show="errorMsgUcsmIp !== '' && errorMsgUcsmIp != undefined" errormsg="errorMsgUcsmIp"></error-message>
+                        <input class="form-control" id="ucsmIP" type="text"  placeholder="UCSM IP" ng-model="ucsmobj.ucsmIP" ip-validator errormessage="errorMsgUcsmIp" tabname="PhysicalSetup" stepname="UCSM" ng-blur="ckeckUserInputsForUCSM()">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mobilePadding">
+                <div class="col-md-12 ">
+                    <div class="form-group">
+                    <label for="resourcePrefix" class="requiredField">{{ 'BLUEPRINTSETUP_PHYSICALSETUP_UCSMCOMMON_RESOURCEPREFIX' | translate }}</label> <help-text text-key="UCSM_COMMON_RESOURCE_PREFIX"> </help-text> <error-message ng-show="errorMsgResourcePrefix !== '' && errorMsgResourcePrefix != undefined" errormsg="errorMsgResourcePrefix"></error-message>
+                        <input class="form-control" id="resourcePrefix" type="text"  placeholder="Resource Prefix" ng-model="ucsmobj.resourcePrefix" required-field-Validator errormessage="errorMsgResourcePrefix" tabname="PhysicalSetup" stepname="UCSM" ng-blur="ckeckUserInputsForUCSM()" maxlength="6">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mobilePadding" ng-show="checkIfDedicated()">
+            	 <div class="col-md-12 ">
+                    <div class="form-group">
+                    	<label for="inputsm">{{ 'BLUEPRINTSETUP_PHYSICALSETUP_UCSMCOMMON_M_RAID_CARD' | translate }}</label>
+                    <input id="inputsm" type="checkbox"  ng-model="ucsmobj.mraidCard" >
+                    </div>
+                </div>
+            </div>
+        <div class="col-md-6 mobilePadding" ng-hide="checkIfOVSVLAN()">
+            <div class="col-md-12 ">
+                <div class="form-group">
+                    <label for="inputsm" >{{ 'BLUEPRINTSETUP_PHYSICALSETUP_UCSMCOMMON_UCSM_PLUGIN' | translate }}</label>
+                    <input id="inputsm" type="checkbox"  ng-model="ucsmobj.ucsmPlugin" >
+                </div>
+            </div>
+        </div>
+                  
+    </form>  
+
+</div>

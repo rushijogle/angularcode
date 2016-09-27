@@ -1,0 +1,52 @@
+<div id="opsnstackid" class="tabContentPadding"  style="margin-top:20px;"  ng-controller="OpenstackCtrl" ng-app="mercuryInstaller.blueprintSetup.openstackSetupWizard"> 
+    <div class="stepwizard ">
+        <div class="setup-panel">
+            <ul class="nav nav-wizard">
+                <li id="Step-0" ng-click="navigateToCurrentTab('HAProxy');" class="active"><a  type="button"><span><img src="../static/imgs/success.png" ng-show="blueprintsetupinput.openstackSetupData.haProxyData.isHAProxyValidated"/><img src="../static/imgs/notvalid.png" class="imageheight" ng-show="!blueprintsetupinput.openstackSetupData.haProxyData.isHAProxyValidated"/></span>{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_HAPROXY' | translate }}</a></li>
+                <li id="Step-1" ng-click="navigateToCurrentTab('Keystone');" ><a  type="button" ><span><img src="../static/imgs/success.png" ng-show="blueprintsetupinput.openstackSetupData.keystoneData.isKeystoneValidated"/><img src="../static/imgs/notvalid.png" class="imageheight" ng-show="!blueprintsetupinput.openstackSetupData.keystoneData.isKeystoneValidated"/></span>{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_KEYSTONE' | translate }}</a></li>
+                <li id="Step-2" ng-click="navigateToCurrentTab('Neutron');"><a type="button" ><span><img src="../static/imgs/success.png" ng-show="checkIfNeutronValidated()"/><img src="../static/imgs/notvalid.png" class="imageheight" ng-show="!checkIfNeutronValidated()"/></span>{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_NEUTRON' | translate }}</a></li>
+                <li id="Step-3" ng-click="navigateToCurrentTab('CEPH');" ><a  type="button" ><span><img src="../static/imgs/success.png" ng-show="blueprintsetupinput.openstackSetupData.cephData.isCephValidated"/><img src="../static/imgs/notvalid.png" class="imageheight" ng-show="!blueprintsetupinput.openstackSetupData.cephData.isCephValidated"/></span>{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_CEPH' | translate }}</a></li>
+                <li id="Step-4" ng-click="navigateToCurrentTab('Glance');"><a  type="button" ><span><img src="../static/imgs/success.png" ng-show="blueprintsetupinput.openstackSetupData.glanceData.isGlanceValidated"/><img src="../static/imgs/notvalid.png" class="imageheight" ng-show="!blueprintsetupinput.openstackSetupData.glanceData.isGlanceValidated"/></span>{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_GLANCE' | translate }}</a></li>
+                <li id="Step-5" ng-click="navigateToCurrentTab('Cinder');"><a  type="button" ><span><img src="../static/imgs/success.png" ng-show="blueprintsetupinput.openstackSetupData.cinderData.isCinderValidated"/><img src="../static/imgs/notvalid.png" class="imageheight" ng-show="!blueprintsetupinput.openstackSetupData.cinderData.isCinderValidated"/></span>{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_CINDER' | translate }}</a></li>
+                <li id="Step-6" ng-click="navigateToCurrentTab('VMTP');" ng-show="isVMTPEnable()"><a  type="button" ><span><img src="../static/imgs/success.png" ng-show="blueprintsetupinput.openstackSetupData.vmtpData.isVMTPValidated"/><img src="../static/imgs/notvalid.png" class="imageheight" ng-show="!blueprintsetupinput.openstackSetupData.vmtpData.isVMTPValidated"/></span>{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_VMTP' | translate }}</a></li>
+                <li id="Step-7" ng-click="navigateToCurrentTab('TLS');"><a  type="button" ><span><img src="../static/imgs/success.png" ng-show="blueprintsetupinput.openstackSetupData.tlsobj.isTLSValidated"/><img src="../static/imgs/notvalid.png" class="imageheight" ng-show="!blueprintsetupinput.openstackSetupData.tlsobj.isTLSValidated"/></span>{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_TLS' | translate }}</a></li>
+                <li id="Step-8" ng-click="navigateToCurrentTab('ELK');" ng-show="checkIfElkSupported()"><a  type="button" ><span><img src="../static/imgs/success.png" ng-show="blueprintsetupinput.openstackSetupData.elkobj.isELKValidated"/><img src="../static/imgs/notvalid.png" class="imageheight" ng-show="!blueprintsetupinput.openstackSetupData.elkobj.isELKValidated"/></span>{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_ELK' | translate }}</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <form role="form" >
+        <div class="row setup-content minheight bordercontainer zeroleftmargin" id="HAProxy"  ng-show="viewStackVisibilityArray[0]">
+            <ha-proxy-setup class="marginspace" haproxyobj="blueprintsetupinput.openstackSetupData.haProxyData" ishaproxyvalid="isHAProxyValid" sharedobject="sharedobject"> </ha-proxy-setup>
+        </div> 
+        <div class="row setup-content minheight bordercontainer zeroleftmargin" id="Keystone"  ng-show="viewStackVisibilityArray[1]">
+            <keystone-setup class="marginspace" keystoneobj="blueprintsetupinput.openstackSetupData.keystoneData" iskeystonevalid="isKeystoneValid" sharedobject="sharedobject"> </keystone-setup>
+        </div> 
+        <div class="row setup-content minheight bordercontainer zeroleftmargin" id="Neutron"  ng-show="viewStackVisibilityArray[2]">
+            <neutron-setup class="marginspace" neutronobj="blueprintsetupinput.openstackSetupData.neutronData" isneutronvalid="isNeutronValid" iscseries="blueprintsetupinput.initialSetupData.type=='C'" sharedobject="sharedobject"> </neutron-setup>
+        </div> 
+        <div class="row setup-content minheight bordercontainer zeroleftmargin" id="CEPH"  ng-show="viewStackVisibilityArray[3]">
+            <ceph-setup class="marginspace" cephobj="blueprintsetupinput.openstackSetupData.cephData" iscephvalid="isCephValid" sharedobject="sharedobject"> </ceph-setup>
+        </div> 
+        <div class="row setup-content minheight bordercontainer zeroleftmargin" id="Glance"  ng-show="viewStackVisibilityArray[4]">
+            <glance-setup class="marginspace" glanceobj="blueprintsetupinput.openstackSetupData.glanceData" isglancevalid="isGlanceValid" sharedobject="sharedobject"> </glance-setup>
+        </div> 
+        <div class="row setup-content minheight bordercontainer zeroleftmargin" id="Cinder"  ng-show="viewStackVisibilityArray[5]">
+            <cinder-setup class="marginspace" cinderobj="blueprintsetupinput.openstackSetupData.cinderData" iscindervalid="isCinderValid" sharedobject="sharedobject"> </cinder-setup>
+        </div> 
+        <div class="row setup-content minheight bordercontainer zeroleftmargin" id="VMTP"  ng-show="viewStackVisibilityArray[6]">
+            <vmtp-setup class="marginspace" vmtpobj="blueprintsetupinput.openstackSetupData.vmtpData" isvmtpvalid="isVMTPValid" sharedobject="sharedobject"> </vmtp-setup>
+        </div>
+        <div class="row setup-content minheight bordercontainer zeroleftmargin" id="TLS"  ng-show="viewStackVisibilityArray[7]">
+            <tls-setup class="marginspace" tlsobj="blueprintsetupinput.openstackSetupData.tlsobj" istlsvalid="isTLSValid" sharedobject="sharedobject"> </tls-setup>
+        </div>
+        <div class="row setup-content minheight bordercontainer zeroleftmargin" id="ELK"  ng-show="viewStackVisibilityArray[8]">
+            <elk-setup class="marginspace" elkobj="blueprintsetupinput.openstackSetupData.elkobj" isvelkalid="isELKValid" sharedobject="sharedobject"> </elk-setup>
+        </div>
+        <div class="form-group toppadding" align="right">
+            <button value="Back" class="btn btn-primary" ng-click="goToPreviousView()" ng-show="checkIfNotFirst()">Back</button>
+            <button text="Next" class="btn btn-primary" ng-click="updateInputObject()" ng-show="checkIfNotLast()">Next</button>
+        </div>
+    </form>
+
+</div>

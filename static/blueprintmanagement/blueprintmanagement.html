@@ -1,0 +1,50 @@
+<div class="container-fluid mobilePadding" ng-init="disableButton = true" >
+
+    <div class="row">
+        <div class="col-md-4 pull-right addheightblueprintmanagement">
+            <div class="form-group col-xs-2">
+                <button type="button" class="btn btn-md customcolorwhite " value="delete" ng-click="deleteBlueprintManagement()" data-toggle="tooltip" title="Delete Selected rows" ng-disabled="checkStatus()"><span class="glyphicon glyphicon-trash"></span></button>
+            </div>
+
+            <div class="form-group col-xs-10 removePaddingBlueprintManagement">
+                <div class="input-group">
+                    <label class="input-group-addon" id="basic-addon3"><span class="glyphicon glyphicon-search"></span> </label> 
+                    <input class="form-control" ng-change="refreshData()" ng-model="searchText" ng-disabled = "managementData.length == 0?true:false" aria-describedby="basic-addon3" placeholder="{{ 'PREINSTALL_BLUEPRINTMANAGEMENT_BLUEPRINTSEARCHTEXT' | translate }}">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="btn-group inline pull-left" >    
+            <div class="btn btn-small btn-primary addMarginrightblueprintManagement addMarginleftblueprintManagement " id="topology" ng-disabled="enabledisableTopology()" ng-click="reddirectToTopology()" data-toggle="tooltip" title="Topology View" translate="PREINSTALL_BLUEPRINTMANAGEMENT_TOPOLOGY_BUTTON"></div> 
+            <div class="btn btn-small btn-primary addMarginrightblueprintManagement " id="deploy" ng-click="deployservice()" ng-disabled="enabledisableDeploy()" data-toggle="tooltip" title="Deployment" translate="PREINSTALL_BLUEPRINTMANAGEMENT_DEPLOY_BUTTON"> </div> 
+            <div class="btn btn-small btn-primary addMarginrightblueprintManagement addpaddingleftrightblueprint" id="killdep" ng-disabled="enabledisableKill()" ng-click="killProcess()" data-toggle="tooltip" title="Kill Deployment" >{{changeTitleforKillbuttons}}</div> 
+        </div> 
+    </div>
+      <div ui-grid="gridOptionsForblueprintmanagement" ui-grid-selection ui-grid-exporter class="grid" style="height: 500px" ui-grid-auto-resize ui-grid-resize-columns ui-grid-move-columns>
+          <div class="watermark" ng-if="isDatafound">No data Found</div>
+          <div class="watermark" ng-if="managementData.length == 0?true:false">No data available</div>
+      </div>
+    <confirm-popup popover-html="Are you sure?"> </confirm-popup>
+    <show-yaml popover-html="Show YAML Action popup"> </show-yaml>
+    <show-offlineval popover-html="Show YAML Action popup"> </show-offlineval>
+
+    <div class="modal fade" id="offlineModalBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+ <mi-confirmation-popup popuptext="popupText" onproceed="onProceed()" showpopup="isVisible" cancelfunction="onCancel()"></mi-confirmation-popup>
+</div>

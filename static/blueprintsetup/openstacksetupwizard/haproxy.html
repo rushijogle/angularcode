@@ -1,0 +1,26 @@
+<div class="container-fluid" ng-app="mercuryInstaller.blueprintSetup.openstackSetupWizard.haProxy" ng-controller="HAProxyCtrl">
+    <form role="form" class="col-md-6">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="inputdefault" class="requiredField">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_HAPROXY_EXTERNALVIPADDRESS' | translate }}</label><help-text text-key="HA_PROXY_EXTERNAL_VIP_ADDRESS_BC_SERIES"> </help-text> <error-message ng-show="errorMsgExtIP!=='' && errorMsgExtIP!=undefined" errormsg="errorMsgExtIP"></error-message>
+                    <input class="form-control" id="inputdefault" type="text" ng-model = "haproxyobj.externalvipaddr" ip-validator errormessage="errorMsgExtIP" tabname="OpenstackSetup" stepname="HAProxy" ng-blur="checkUserInputsForHAProxy()">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="inputlg" class="requiredField">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_HAPROXY_VIRTUALROUTERID' | translate }}</label><help-text text-key="HA_PROXY_VIRTUAL_ROUTER_ID_BC_SERIES"> </help-text> <error-message ng-show="errorMsgRouterId!=='' && errorMsgRouterId!=undefined" errormsg="errorMsgRouterId"></error-message>
+                    <input class="form-control" id="inputlg" type="number" min="1" max="256" ng-model="haproxyobj.virtualrouterId" required-field-validator errormessage="errorMsgRouterId" tabname="OpenstackSetup" stepname="HAProxy" ng-blur="checkUserInputsForHAProxy()">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="inputsm" class="requiredField">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_HAPROXY_INTERNALVIPADDRESS' | translate }}</label><help-text text-key="HA_PROXY_INTERNAL_VIP_ADDRESS_BC_SERIES"> </help-text> <error-message ng-show="errorMsgIntIP!=='' && errorMsgIntIP!=undefined" errormsg="errorMsgIntIP"></error-message>
+                    <input class="form-control" id="inputsm" type="text" ng-model="haproxyobj.internalvipaddr" ip-validator errormessage="errorMsgIntIP" tabname="OpenstackSetup" stepname="HAProxy" ng-blur="checkUserInputsForHAProxy()">
+                </div>
+            </div>
+           
+        </div>
+    </form>  
+
+</div>

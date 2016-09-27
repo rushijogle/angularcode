@@ -1,0 +1,13 @@
+<div ng-app="MercuryInstaller.Topology" class="col-md-12" ng-controller="TopologyCtrl">
+<div class="form-group col-md-3">
+		<label for="BlueprintList" translate>{{ 'TOPOLOGY_SELECTBLUEPRINT' | translate }}</label>
+		<select class="form-control" ng-model="selectedBlueprintuuid">
+			<option ng-repeat="blueprintObj in blueprintList track by $index" value="{{blueprintObj.uuid}}">{{blueprintObj.blueprintName}}</option>
+		</select>
+	</div>
+    <div class="form-group col-md-2">
+		<label for="" translate></label>
+		<button class="btn btn-primary form-control" ng-click="showTopology()">{{ 'TOPOLOGY_SELECTBLUEPRINT_BUTTONNAME' | translate }}</button>
+	</div>
+    <div id="topology" class="col-md-12"></div>
+</div>

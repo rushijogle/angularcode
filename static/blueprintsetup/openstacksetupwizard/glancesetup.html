@@ -1,0 +1,29 @@
+<div class="container-fluid" ng-app="mercuryInstaller.blueprintSetup.openstackSetupWizard.glance" ng-controller="GlanceCtrl">
+    <form role="form" class="col-md-6">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="inputdefault" class="requiredField">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_GLANCE_STOREBACKEND' | translate }}</label>
+                    <select class="form-control" id="storeBakend" ng-model="glanceobj.storeBackend" ng-change="checkUserInputsForGlance()" ng-disabled="true">
+                        <option value="ceph">CEPH</option>
+                        <option value="file">FILE</option>
+                    </select>
+                    <!--<input class="form-control" id="inputdefault" type="text" ng-model = "glanceobj.storeBackend" check-required-glance ng-blur="checkUserInputsForGlance()">-->
+                </div>
+            </div>
+            <div class="col-md-6" ng-show="checkForCephModeAndShowHide()">
+                <div class="form-group">
+                    <label for="inputlg" ng-class="sharedobject.cephMode=='Dedicated'?'': 'requiredField'">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_GLANCE_GLANCERBDPOOL' | translate }}</label> <error-message ng-show="errorMsgRBDPool!=='' && errorMsgRBDPool!=undefined" errormsg="errorMsgRBDPool"></error-message>
+                    <input class="form-control" id="inputlg" type="text" ng-model="glanceobj.glancePool" required-field-Validator errormessage="errorMsgRBDPool" tabname="OpenstackSetup" stepname="Glance" ng-blur="checkUserInputsForGlance()" readonly="readonly">
+                </div>
+            </div>
+            <div class="col-md-6" ng-show="checkForCephModeAndShowHide()">
+                <div class="form-group">
+                    <label for="inputsm" ng-class="sharedobject.cephMode=='Dedicated'?'': 'requiredField'">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_GLANCE_GLANCECLIENTKEY' | translate }}</label> <error-message ng-show="errorMsgClientKey!=='' && errorMsgClientKeyl!=undefined" errormsg="errorMsgClientKey"></error-message>
+                    <input class="form-control" id="inputsm" type="text" ng-model="glanceobj.glanceKey" required-field-validator errormessage="errorMsgClientKey" ng-blur="checkUserInputsForGlance()">
+                </div>
+            </div>
+        </div>
+    </form>  
+
+</div>

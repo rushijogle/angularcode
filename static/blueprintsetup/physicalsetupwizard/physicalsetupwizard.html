@@ -1,0 +1,40 @@
+<div id="home"  style="margin-top:20px;" class="tabContentPadding" ng-controller="PhysicalSetupCtrl" ng-app="mercuryInstaller.blueprintSetup.physicalSetupWizard"> 
+    <div class="stepwizard ">
+        <div class="setup-panel">
+            <ul class="nav nav-wizard">
+                <li id="step-0" ng-click="navigateToCurrentTab('Registry');" class="active" ><a  type="button"  ><span><img src="../static/imgs/success.png" ng-show="blueprintsetupinput.physicalSetupData.registryobj.isRegistryValidated"/><img src="../static/imgs/notvalid.png" class="imageheight" ng-hide="blueprintsetupinput.physicalSetupData.registryobj.isRegistryValidated"/></span>{{ 'BLUEPRINTSETUP_PHYSICALSETUP_REGISTRY' | translate }}</a></li>
+                <li id="step-1-c" ng-click="navigateToCurrentTab('CIMC');" ng-show="isCSeries()" ng-disabled="!isCSeries()"><a  type="button"  ><span><img src="../static/imgs/success.png" ng-show="blueprintsetupinput.physicalSetupData.CIMC_COMMON.iscimcvalidated"/><img src="../static/imgs/notvalid.png" class="imageheight" ng-hide="blueprintsetupinput.physicalSetupData.CIMC_COMMON.iscimcvalidated"/></span>{{ 'BLUEPRINTSETUP_PHYSICALSETUP_CIMCCOMMON' | translate }}</a></li>
+                <li id="step-1-b" ng-click="navigateToCurrentTab('UCSM')" ng-hide="isCSeries()"><a typr="button"><span><img src="../static/imgs/success.png" ng-show="blueprintsetupinput.physicalSetupData.UCSM.isUCSMValidated"/><img src="../static/imgs/notvalid.png" class="imageheight" ng-hide="blueprintsetupinput.physicalSetupData.UCSM.isUCSMValidated"/></span>{{ 'BLUEPRINTSETUP_PHYSICALSETUP_UCSMCOMMON' | translate }}</a></li>
+                <li id="step-2" ng-click="navigateToCurrentTab('Networking');" ><a  type="button" ><span><img src="../static/imgs/success.png" ng-show="blueprintsetupinput.physicalSetupData.NETWORKING.isNetworkValidated"/><img src="../static/imgs/notvalid.png" class="imageheight" ng-hide="blueprintsetupinput.physicalSetupData.NETWORKING.isNetworkValidated"/></span>{{ 'BLUEPRINTSETUP_PHYSICALSETUP_NETWORKING' | translate }}</a></li>
+                <li  ng-click="navigateToCurrentTab('ServerAndTheirRoles');" id="step-3" ><a type="button" ><span><img src="../static/imgs/success.png" ng-show="blueprintsetupinput.physicalSetupData.SERVERS.isServersValidated"/><img src="../static/imgs/notvalid.png" class="imageheight" ng-hide="blueprintsetupinput.physicalSetupData.SERVERS.isServersValidated"/></span>{{ 'BLUEPRINTSETUP_PHYSICALSETUP_SERVERANDROLES' | translate }}</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <form role="form" >
+        <div class="row setup-content minheight bordercontainer zeroleftmargin" id="Registry"  ng-show="viewStackVisibilityArray[0]">
+            <registry-setup class="marginspace"  registryobj="blueprintsetupinput.physicalSetupData.registryobj"></registry-setup>
+        </div>
+        <div class="row setup-content minheight bordercontainer zeroleftmargin" id="CIMC"  ng-show="viewStackVisibilityArray[1] && isCSeries()">
+            <cimc-common-setup class="marginspace" iscimcvalidated="isCimcValidated" cimcobj="blueprintsetupinput.physicalSetupData.CIMC_COMMON" sharedobject="sharedobject"></cimc-common-setup>
+        </div> 
+        <div class="row setup-content minheight bordercontainer zeroleftmargin" id="UCSM"  ng-show="viewStackVisibilityArray[1] && !isCSeries()">
+        	<ucsm-common-setup class="marginspace" ucsmobj="blueprintsetupinput.physicalSetupData.UCSM" isucsmvalidated = "isUcsmValidated" sharedobject="sharedobject"></ucsm-common-setup>
+        </div>
+        <div class="row setup-content minheight bordercontainer zeroleftmargin" id="Networking"  ng-show="viewStackVisibilityArray[2]">
+            <networking-setup class="marginspace" nextclicked="nextClicked" networkconf="blueprintsetupinput.physicalSetupData.NETWORKING" platformtype="blueprintsetupinput.initialSetupData.type" isnetworkingvalidated="isNetworkingValidated" sharedobject="sharedobject"></networking-setup>
+        </div> 
+        <div class="row setup-content minheight bordercontainer zeroleftmargin" id="ServersAndTheirRoles"  ng-show="viewStackVisibilityArray[3]">
+            <server-and-roles-setup nextclickedservers="nextClickedServers" platformtype="blueprintsetupinput.initialSetupData.type" class="marginspace" serversobject="blueprintsetupinput.physicalSetupData.SERVERS" isserversvalidated="isNetworkingValidated" sharedobject="sharedobject"></server-and-roles-setup>
+        </div> 
+<!--         <div class="row setup-content minheight bordercontainer zeroleftmargin" id="RedhatSubscription"  ng-show="viewStackVisibilityArray[3]"> -->
+<!--             <redhat-subscription-setup class="marginspace" redhatsubscriptionobj="blueprintsetupinput.physicalSetupData.REDHAT_SUBSCRIPTION" isredhatvalidated="isRedhatValidated"></redhat-subscription-setup> -->
+<!--         </div>  -->
+
+        <div class="form-group toppadding" align="right">
+            <button value="Back" class="btn btn-primary" ng-click="goToPreviousView()" ng-show="checkIfNotFirst()">Back</button>
+            <button text="Next" class="btn btn-primary" ng-click="goToNextView()" ng-show="checkIfNotLast()">Next</button>
+        </div>
+    </form>
+
+</div>

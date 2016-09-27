@@ -1,0 +1,57 @@
+<div class="col-md-12" ng-controller="SystemUpdatrCtrl">
+    <form role="form">
+        <div>
+            <label class="form-group col-md-12">Upload Tar</label>
+        </div>
+        <div class="form-group col-md-4">
+            <input type="text" class="form-control" readonly  ng-model="uploadfileobj.fileName" ng-click="openDialog()">
+        </div>
+        <div class="form-group">
+
+            <upload-file uploadfileobj="uploadfileobj"></upload-file>
+            <button type="button" class="btn btn-primary"  ng-disabled = "(uploadfileobj.fileName === '' || uploadfileobj.fileName === '')||(checkIfAlreadyRunningUpdate())" ng-click = "uploadfileandstartupdate()">Upload and Update</button>
+        </div>
+
+    </form>
+    <hr/>
+    <div class="col-md-12">
+        <label>Status Of System Update</label>
+        <table class="table">
+
+            <tbody>
+
+                <tr>
+                    <td>Update file name</td>
+                    <td ng-bind="systemUpdateDataObject.update_filename"></td>
+                </tr>
+                <tr>
+                    <td>Created At</td>
+                    <td ng-bind="systemUpdateDataObject.created_at"></td>
+                </tr>
+                <tr>
+                    <td>Updated At</td>
+                    <td ng-bind="systemUpdateDataObject.updated_at"></td>
+                </tr>
+                <tr>
+                    <td>Status</td>
+                    <td ng-bind="systemUpdateDataObject.update_status"></td>
+                </tr>
+                <tr>
+                    <td>Update Logs</td>
+                    <td><a href="{{systemUpdateDataObject.update_logs}}" target="_blank" ng-show="systemUpdateDataObject.update_logs?true:false">Click here to see Update Logs</a><span ng-show="systemUpdateDataObject.update_logs ? false:true">Not Available</span></td>
+                </tr>
+                <tr>
+                    <td>Actions</td>
+                    <td>
+                        <!--<button class="btn btn-primary">Commit</button>&nbsp;&nbsp;<button class="btn btn-primary">Rollback</button>-->
+                        <span ng-hide="!checkIfStatusActive()"><a href="javascript:void(0);" ng-click="commitHandler()" ng-hide="!checkIfStatusActive()">Commit</a> &nbsp; or &nbsp;<a href="javascript:void(0);" ng-click="rollbackHandler()" ng-hide="!checkIfStatusActive()">Rollback</a></span>
+                        <span ng-show="!checkIfStatusActive()">Not Applicable</span>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <mi-confirmation-popup popuptext="popupText" onproceed="onProceed()" showpopup="isVisible" cancelfunction="onCancel()"></mi-confirmation-popup>
+</div>

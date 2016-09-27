@@ -1,0 +1,52 @@
+<div class="container-fluid" ng-app="mercuryInstaller.blueprintSetup.openstackSetupWizard.ceph" ng-controller="CephCtrl">
+    <form role="form" class="col-md-6">
+        <div class="row">
+        	<div class="col-md-6">
+                <div class="form-group">
+                    <label for="inputdefault" class="requiredField">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_CEPH_CEPHMODE' | translate }}</label> 
+                    <input type="text" class="form-control" ng-model = "sharedobject.cephMode" readonly="readonly"/>
+                </div>
+            </div>
+            <div class="col-md-6" ng-show="checkForCephMode()">
+                <div class="form-group">
+                    <label for="inputdefault" ng-class="sharedobject.cephMode=='Dedicated'?'': 'requiredField'">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_CEPH_CLUSTERID' | translate }}</label> <error-message ng-show="errorMsgClusterId!=='' && errorMsgClusterId!=undefined" errormsg="errorMsgClusterId"></error-message>
+                    <input class="form-control" id="inputdefault" type="text" ng-model = "cephobj.clusterId" required-field-validator errormessage="errorMsgClusterId" ng-blur="checkUserInputsForCeph()">
+                </div>
+            </div>
+            <div class="col-md-6" ng-show="checkForCephMode()">
+                <div class="form-group">
+                    <label for="inputlg" ng-class="sharedobject.cephMode=='Dedicated'?'': 'requiredField'">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_CEPH_MONITORHOST' | translate }}</label> <error-message ng-show="errorMsgMonHost!=='' && errorMsgMonHost!=undefined" errormsg="errorMsgMonHost"></error-message>
+                    <input class="form-control" id="inputlg" type="text" ng-model="cephobj.monitorhost" required-field-validator errormessage="errorMsgMonHost" ng-blur="checkUserInputsForCeph()">
+                </div>
+            </div>
+            <div class="col-md-6" ng-show="checkForCephMode()">
+                <div class="form-group">
+                    <label for="inputsm" ng-class="sharedobject.cephMode=='Dedicated'?'': 'requiredField'">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_CEPH_MONITORMEMBERS' | translate }}</label> <error-message ng-show="errorMsgMonMembers!=='' && errorMsgMonMembers!=undefined" errormsg="errorMsgMonMembers"></error-message>
+                    <input class="form-control" id="inputsm" type="text" ng-model="cephobj.monitormembers" required-field-validator errormessage="errorMsgMonMembers" ng-blur="checkUserInputsForCeph()">
+                </div>
+            </div>
+            <div class="col-md-6" ng-show="checkForCephMode()">
+                <div class="form-group">
+                    <label for="inputsm" ng-class="sharedobject.cephMode=='Dedicated'?'': 'requiredField'">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_CEPH_SECRETUUID' | translate }}</label> <error-message ng-show="errorMsgSecretId!=='' && errorMsgSecretId!=undefined" errormsg="errorMsgSecretId"></error-message>
+                    <input class="form-control" id="inputsm" type="password" autocomplete="off" ng-model="cephobj.secretUUID" required-field-validator errormessage="errorMsgSecretId" ng-blur="checkUserInputsForCeph()">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="inputsm">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_CEPH_NOVA_BOOT_FROM' | translate }}</label> <error-message ng-show="errorMsgSecretId!=='' && errorMsgSecretId!=undefined" errormsg="errorMsgSecretId"></error-message>
+                    <select class="form-control" ng-model="cephobj.novaBootFrom">
+                        <option value="local">Local</option>
+                        <option value="ceph">Ceph</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6" ng-show="checkForCephMode()">
+                <div class="form-group">
+                    <label for="inputsm" ng-class="sharedobject.cephMode=='Dedicated'?'': 'requiredField'">{{ 'BLUEPRINTSETUP_OPENSTACKSETUP_CEPH_NOVA_RBD_POOL' | translate }}</label> <error-message ng-show="errorMsgNovaRBDPool!=='' && errorMsgNovaRBDPool!=undefined" errormsg="errorMsgNovaRBDPool"></error-message>
+                    <input class="form-control" id="inputsm" type="text" ng-model="cephobj.novaRBDPool" required-field-validator errormessage="errorMsgNovaRBDPool" ng-blur="checkUserInputsForCeph()">
+                </div>
+            </div>
+        </div>
+    </form>  
+
+</div>
