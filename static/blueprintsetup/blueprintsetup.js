@@ -15,7 +15,7 @@ var StepContentProtoType = function () {
 }
 
 function CIMCProtoType() {
-    this.cimc_username = 'admin';
+    this.cimc_username = 'administrope';
     this.cimc_password = '';
     this.iscimcvalidated = false;
     this.clear = function () {
